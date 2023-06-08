@@ -154,7 +154,8 @@ export default function NewTokenSaleForm({ onClose }) {
       onValue(userTokenBalanceRef, (snapshot) => {
         const balance = snapshot.val();
         if (balance) {
-          setNewTokenBalance(balance);
+          console.log(balance);
+         // setNewTokenBalance(balance);
         }
       });
 
