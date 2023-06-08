@@ -20,7 +20,7 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
 export default function NewTokenPurchaseForm({ onClose }) {
-  const { signIn } = useContext(UserContext);
+ // const { signIn } = useContext(UserContext);
   const navigate = useNavigate();
 
   const [validation, setValidation] = useState("");

@@ -43,7 +43,7 @@ const ProductPage = () => {
       <div class="card-body text-center">
         <h5 class="card-title text-center">Special title treatment</h5>
         <p class="card-text text-center">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <a href="/Myre" class="btn btn-primary">Go somewhere</a>
       </div>
     </div>
   </div>
@@ -52,7 +52,7 @@ const ProductPage = () => {
       <div class="card-body text-center">
         <h5 class="card-title text-center">Special title treatment</h5>
         <p class="card-text text-center">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <a href="/Myre" class="btn btn-primary">Go somewhere</a>
       </div>
     </div>
   </div>
@@ -63,7 +63,7 @@ const ProductPage = () => {
       <div class="card-body text-center">
         <h5 class="card-title text-center">Special title treatment</h5>
         <p class="card-text text-center">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <a href="/Myre" class="btn btn-primary">Go somewhere</a>
       </div>
     </div>
   </div>
@@ -72,7 +72,7 @@ const ProductPage = () => {
       <div class="card-body text-center">
         <h5 class="card-title text-center">Special title treatment</h5>
         <p class="card-text text-center">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <a href="/Myre" class="btn btn-primary">Go somewhere</a>
       </div>
     </div>
   </div>

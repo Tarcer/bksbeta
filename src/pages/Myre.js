@@ -127,7 +127,7 @@ const Myre = () => {
       </div>
       <div className="container p-5 mt-2"></div>
       <div className="card mb-3">
-        <img className="card-img-top" src={bnfm} alt="Card image cap" />
+        <img className="card-img-top" src={bnfm} alt="Card cap" />
       </div>
     </div>
   );

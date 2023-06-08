@@ -20,15 +20,15 @@ export default function PrivateHome() {
       const transactionRef = ref(database, `transactions/${userId}`);
 
       const unsubscribeTransactions = onValue(transactionRef, (snapshot) => {
-        const transactions = snapshot.val();
-        const count = transactions ? Object.keys(transactions).length : 0;
+        //const transactions = snapshot.val();
+        //const count = transactions ? Object.keys(transactions).length : 0;
         // setTotalTransactions(count);
       });
 
       const totalBalanceRef = ref(database, `users/${userId}/totalBalance`);
       const unsubscribeTotalBalance = onValue(totalBalanceRef, (snapshot) => {
-        const balance = snapshot.val();
-        setTotalBalance(parseFloat(totalBalance)); // Convertir la valeur en nombre
+        //const balance = snapshot.val();
+        //setTotalBalance(parseFloat(totalBalance)); // Convertir la valeur en nombre
       });
 
       return () => {

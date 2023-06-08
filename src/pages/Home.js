@@ -100,10 +100,10 @@ export default function Home() {
 </div>
       <h4 className="text-dark text-center mt-5">Notre actualitée :</h4>
       <div class="card mb-3">
-        <img class="card-img-top" src={arcticle}  alt="Card image cap"/> 
+        <img class="card-img-top" src={arcticle}  alt="Card cap"/> 
         <h5 class="card-tittle text-center mt-3">Urban Série 5 Avec la MYRE :</h5>
         <p class="card-text text-center">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <a href="#" class="btn btn-warning mt-3">Consulter l'article </a>
+        <a href="/Myre" class="btn btn-warning mt-3">Consulter l'article </a>
       </div>
     </div>
   )

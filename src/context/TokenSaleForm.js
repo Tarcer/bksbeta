@@ -20,7 +20,7 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
 export default function NewTokenSaleForm({ onClose }) {
-  const { signIn } = useContext(UserContext);
+  //const { signIn } = useContext(UserContext);
   const navigate = useNavigate();
 
   const [validation, setValidation] = useState("");
@@ -33,7 +33,7 @@ export default function NewTokenSaleForm({ onClose }) {
     }
   };
   const formRef = useRef();
-  const [newTokenBalance, setNewTokenBalance] = useState(0); // Ajout de l'état newTokenBalance
+  //const [newTokenBalance, setNewTokenBalance] = useState(0); // Ajout de l'état newTokenBalance
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {

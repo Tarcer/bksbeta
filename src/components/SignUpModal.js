@@ -33,10 +33,10 @@ export default function SignUpModal() {
 
     try {
 
-      const cred = await signUp(
-        inputs.current[0].value,
-        inputs.current[1].value
-      )
+      //const cred = await signUp(
+      //  inputs.current[0].value,
+      //  inputs.current[1].value
+      //)
       // formRef.current.reset();
       setValidation("")
       // console.log(cred);
