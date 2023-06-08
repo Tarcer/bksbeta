@@ -1,5 +1,5 @@
-import React, { useContext, useRef, useState, useEffect } from "react";
-import { UserContext } from "./userContext";
+import React, { useRef, useState, useEffect } from "react";
+// import { UserContext } from "./userContext";
 import { useNavigate } from "react-router-dom";
 import { getDatabase, ref, update, push, onValue, off } from "firebase/database";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -20,7 +20,7 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
 export default function NewTokenSaleForm({ onClose }) {
-  //const { signIn } = useContext(UserContext);
+  // const { signIn } = useContext(UserContext);
   const navigate = useNavigate();
 
   const [validation, setValidation] = useState("");
@@ -33,7 +33,7 @@ export default function NewTokenSaleForm({ onClose }) {
     }
   };
   const formRef = useRef();
-  //const [newTokenBalance, setNewTokenBalance] = useState(0); // Ajout de l'état newTokenBalance
+  // const [newTokenBalance, setNewTokenBalance] = useState(0); // Ajout de l'état newTokenBalance
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -155,7 +155,6 @@ export default function NewTokenSaleForm({ onClose }) {
         const balance = snapshot.val();
         if (balance) {
           console.log(balance);
-         // setNewTokenBalance(balance);
         }
       });
 

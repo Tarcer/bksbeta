@@ -10,7 +10,7 @@ export default function PrivateHome() {
   const handleClosePurchaseForm = () => {
     setShowPurchaseForm(false);
   };
-  const [totalBalance, setTotalBalance] = useState('');
+  const totalBalance = 0;
   const [resetEmail, setResetEmail] = useState('');
 
   useEffect(() => {
@@ -20,21 +20,25 @@ export default function PrivateHome() {
       const transactionRef = ref(database, `transactions/${userId}`);
 
       const unsubscribeTransactions = onValue(transactionRef, (snapshot) => {
-        //const transactions = snapshot.val();
-        //const count = transactions ? Object.keys(transactions).length : 0;
-        // setTotalTransactions(count);
+        const transactions = snapshot.val();
+        const count = transactions ? Object.keys(transactions).length : 0;
+        console.log(count)
       });
 
       const totalBalanceRef = ref(database, `users/${userId}/totalBalance`);
       const unsubscribeTotalBalance = onValue(totalBalanceRef, (snapshot) => {
-        //const balance = snapshot.val();
-        //setTotalBalance(parseFloat(totalBalance)); // Convertir la valeur en nombre
+        const balance = snapshot.val();
+        console.log(balance)
+        // setTotalBalance(parseFloat(totalBalance)); // Convertir la valeur en nombre
       });
 
       return () => {
         transactionRef.off('value', unsubscribeTransactions);
         totalBalanceRef.off('value', unsubscribeTotalBalance);
       };
+    }
+    else{
+      console.log('le else')
     }
   }, [user]);
 

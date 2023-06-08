@@ -21,14 +21,14 @@ export default function SignUpModal() {
     e.preventDefault();
     console.log(inputs);
     try {
-      //const cred = await signIn(
-      //   inputs.current[0].value,
-      //   inputs.current[1].value
-      // );
+      const cred = await signIn(
+        inputs.current[0].value,
+        inputs.current[1].value
+      );
       // à tester
       // formRef.current.reset();
       setValidation("");
-      // console.log(cred);
+      console.log(cred);
       toggleModals("close");
       navigate("/private/private-home");
     } catch {
