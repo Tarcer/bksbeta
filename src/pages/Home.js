@@ -46,7 +46,7 @@ export default function Home() {
         <tr className="mt-5"><th>ACTIVITE DU MARCHE</th></tr>
         <tr class="active mt-5"><td>Valeur des transactions</td><td>1 000 000 €</td></tr>  
         <tr><td>Capitalisation du marché</td><td>10 000 000 €</td></tr>  
-        <tr><td>BNF TOP 30</td><td>100 000 €</td></tr>  
+        <tr><td>BNF TOP 30</td><td>1000 000 €</td></tr>  
         <tr><td>BNF EN VENTE</td><td>600 000 €</td></tr>
       </table>
       </div>
