@@ -11,7 +11,10 @@ const Entreprise = () => {
   };
   const navigate = useNavigate()
   return (
-    <div className="container p-5">
+    <div className="container pt-4 my-3">
+    <table class="table table-bordered ">  
+        <tr><td>BKS</td><td className="text-success">+5%</td><td>BLG</td><td className="text-danger">-3%</td><td>MYRE</td><td className="text-success">+4%</td><td>GAR</td><td className="text-success">+1%</td></tr>  
+      </table>
     <h1 className="display-10 text-dark text-center">
         {currentUser ? "La place de marché " : "Bienvenue sur Backstorm"}
       </h1>
@@ -19,7 +22,7 @@ const Entreprise = () => {
 Backstorm regroupera tous les secteurs, des boulangeries aux agricultures. Afin 
 d’utiliser des leviers pour des opérations importantes et développer le marché des 
 Bnf's : </h6>
-      <table class="table table-striped text-dark mt-5">
+      <table class="table table-striped text-dark mt-5 mb-2">
         <tr><th>Id Bnf</th><th>Nom Entreprise</th><th>Variation</th><th>Valeur</th></tr>
         <tr class="active"><td>01</td><td>BKS</td><td className="text-success">+6%</td><td>500€</td><button 
         onClick={()=> handleClickButton1("Myre") }

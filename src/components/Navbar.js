@@ -46,7 +46,7 @@ export default function Navbar() {
       <div className="btn-group" role="group" aria-label="Basic example">
         <button onClick={handleClickButton1} type="button" className="btn btn-dark">Accueil</button>
         <button onClick={handleClickButton2} type="button" className="btn btn-dark">Les Bnf's</button>
-        <button onClick={handleClickButton3} type="button" className="btn btn-dark">Le marché</button>
+        <button onClick={handleClickButton3} type="button" className="btn btn-dark">Actualités</button>
       </div> 
       <div className="btn-group" role="group" aria-label="Basic example">
         {isLoggedIn ? (

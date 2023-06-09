@@ -63,7 +63,7 @@ export default function PrivateHome() {
   };
 
   return (
-    <div className="container p-5">
+    <div className="container pt-4 my-3">
       <h1 className="h-1 text-dark mb-4 text-center">Mon Compte</h1>
       <h2 className="h-2 rectangle-light text-dark mb-3 mt-5">Liste de vos BNF :</h2>
       <table className="table table-striped text-dark">

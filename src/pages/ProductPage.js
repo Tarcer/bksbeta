@@ -9,7 +9,10 @@ const ProductPage = () => {
     const navigate = useNavigate()
 
   return (
-    <div className="container p-5">
+    <div className="container pt-4">
+    <table class="table table-bordered ">  
+        <tr><td>BKS</td><td className="text-success">+5%</td><td>BLG</td><td className="text-danger">-3%</td><td>MYRE</td><td className="text-success">+4%</td><td>GAR</td><td className="text-success">+1%</td></tr>  
+      </table>
     <h1 className="display-10 text-dark text-center">
         {currentUser ? "Liste des Bnf's" : "Bienvenue sur Backstorm"}
       </h1>
@@ -67,7 +70,7 @@ const ProductPage = () => {
       </div>
     </div>
   </div>
-  <div class="col-sm-6 mt-5">
+  <div class="col-sm-6 mt-5 mb-5">
     <div class="card">
       <div class="card-body text-center">
         <h5 class="card-title text-center">Special title treatment</h5>
