@@ -61,27 +61,28 @@ const Myre = () => {
 
   return (
     <div className="d-flex flex-column align-items-center" style={{ minHeight: '100vh' }}>
+    <div className="container pt-4 my-3">
+    <table class="table table-bordered">  
+        <tr><td>BKS</td><td className="text-success">+5%</td><td>BLG</td><td className="text-danger">-3%</td><td>MYRE</td><td className="text-success">+4%</td><td>GAR</td><td className="text-success">+1%</td></tr>  
+      </table>
+      </div>
       <div className="d-flex align-items-center">
-        <h2 className="text-dark mt-5 mb-4">
+        <h2 className="text-dark mt-2 mb-4">
           {currentUser ? "MYRE" : "MYRE"}
         </h2>
-        <img src={Mry} width="90" height="90" className="d-inline-block align-top" alt="" />
+        <img src={Mry} width="80" height="80" className="d-inline-block align-top" alt="" />
       </div>
       <div className="container pt-4 my-3">
-        <p className="display-09 text-dark text-center">
-          Myre est une structure esportive créée en 2022 par Mark «Markus» Bernardi et Kévin «Rooster» Laforme.
-          Nous voulons donner l’opportunité aux talents d’aujourd’hui de devenir les joueurs de demain.
-          Nous avons l’ambition de devenir une référence connue de tous.
-        </p>
+      <p class="font-weight-light text-center" className="textcolor text-center">Myre est une structure esportive créée en 2022 par Mark «Markus» Bernardi et Kévin «Rooster» Laforme. Nous voulons donner l’opportunité aux talents d’aujourd’hui de devenir les joueurs de demain. Nous avons l’ambition de devenir une référence connue de tous. Un contrat AR est une valeure mobilière qui représente une fraction des bénéfices générés par l’entreprise listée sur Backstorm, sa valeur évoluera en fonction de l’offre et la demande mais aussi de la rentabilité du titre. Le versement des bénéfices s’effectue chaque trimestre. 
+      </p>
       </div>
-      <boutton type="bouton" className="btn btn-warning btn-lg btn-bloc">Le projet</boutton>
       <div className="container pt-4 my-3 align-items-center mb-4">
         <div className="d-flex flex-column text-light">
           <canvas id="myChart" width="450" height="300"></canvas>
         </div>
         <div className="ml-4 d-flex flex-column mt-5">
           <div className="d-flex align-items-center">
-            <strong className="px-2">Cours de l'action :</strong>
+            <strong className="px-2">Cours de l'action:</strong>
             <span>51.6</span>
           </div>
           <div className="d-flex align-items-center">
@@ -108,6 +109,10 @@ const Myre = () => {
             <strong className="px-2 mt-3">Nombre de Bnf:</strong>
             <span className="mt-3">150 / 800</span>
           </div>
+          <div className="d-flex align-items-center">
+            <strong className="px-2 mt-3">Capitalisation:</strong>
+            <span className="mt-3"> 15 000 €</span>
+          </div>
         </div>
       </div>
       <div className="d-flex">
@@ -126,6 +131,7 @@ const Myre = () => {
         </button>
         {showSaleForm && <TokenSaleForm onClose={handleCloseSaleForm} />}
       </div>
+      <boutton type="bouton" className="btn btn-warning btn-lg btn-bloc mt-3">Le projet</boutton>
       <div className="container p-5 mt-2"></div>
       <div className="card mb-3">
         <img className="card-img-top" src={bnfm} alt="Card cap" />
