@@ -149,7 +149,7 @@ const Myre = () => {
       </div>
       <div className="card mb-3 mt-2" style={{ position: "relative" }}>
         <img className="card-img-top" src={bnfm} alt="Card cap" />
-        <boutton type="bouton" className="btn btn-warning btn-lg btn-bloc mt-3" style={{ position: "absolute", bottom: "50%", left: "50%", transform: "translateX(-50%)" }}>Le projet</boutton>
+        <button type="buton" className="btn btn-outline-dark btn-lg btn-block mt-3 d-block" style={{ position: "absolute", bottom: "50%", left: "50%", transform: "translateX(-50%)" }}>Le projet</button>
       </div>
     </div>
   );
