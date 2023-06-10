@@ -14,7 +14,7 @@ const ProductPage = () => {
         <tr><td>BKS</td><td className="text-success">+5%</td><td>BLG</td><td className="text-danger">-3%</td><td>MYRE</td><td className="text-success">+4%</td><td>GAR</td><td className="text-success">+1%</td></tr>  
       </table>
     <h1 className="display-10 text-dark text-center">
-        {currentUser ? "Liste des CAR" : "Bienvenue sur Backstorm"}
+        {currentUser ? "Liste des CAR" : "Liste des CAR"}
       </h1>
       <p class="font-weight-light text-center" className="textcolor text-center">Le Backstorm Non Fongible BNF est une solution technologique faisant office de contrat à rendement numérique. En effet, il permet aux entreprises de mettre à disposition aux investisseurs des titres de propriété et reverseront en contrepartie de leur investissement un rendement en fonction de leurs bénéfices.</p>
       <table class="table text-dark mt-4">

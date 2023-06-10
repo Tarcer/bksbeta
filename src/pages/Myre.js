@@ -33,10 +33,11 @@ const Myre = () => {
       datasets: [
         {
           label: 'Bnf 01',
-          data: [10, 20, 30, 40, 50, 60],
-          backgroundColor: 'rgba(152,107,172,1)',
-          borderColor: 'rgba(234,98,120,1)',
-          borderWidth: 1,
+          data: [1, 15, 8, 27, 12, 17],
+          backgroundColor: '#ad6aa9',
+          borderColor: '#ad6aa9',
+          borderWidth: 1.5,
+          tension: 0.2,
         },
       ],
     };
@@ -66,7 +67,7 @@ const Myre = () => {
         </h2>
         <img src={Mry} width="90" height="90" className="d-inline-block align-top" alt="" />
       </div>
-      <div className="container p-5">
+      <div className="container pt-4 my-3">
         <p className="display-09 text-dark text-center">
           Myre est une structure esportive créée en 2022 par Mark «Markus» Bernardi et Kévin «Rooster» Laforme.
           Nous voulons donner l’opportunité aux talents d’aujourd’hui de devenir les joueurs de demain.
@@ -74,7 +75,7 @@ const Myre = () => {
         </p>
       </div>
       <boutton type="bouton" className="btn btn-warning btn-lg btn-bloc">Le projet</boutton>
-      <div className="container p-5 align-items-center mb-4">
+      <div className="container pt-4 my-3 align-items-center mb-4">
         <div className="d-flex flex-column text-light">
           <canvas id="myChart" width="450" height="300"></canvas>
         </div>
