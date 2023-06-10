@@ -80,42 +80,7 @@ const Myre = () => {
         <div className="d-flex flex-column text-light">
           <canvas id="myChart" width="450" height="300"></canvas>
         </div>
-        <div className="ml-4 d-flex flex-column mt-5">
-          <div className="d-flex align-items-center">
-            <strong className="px-2">Cours de l'action:</strong>
-            <span>51.6</span>
-          </div>
-          <div className="d-flex align-items-center">
-            <strong className="px-2 mt-3">Siège social:</strong>
-            <span className="mt-3">Paris</span>
-          </div>
-          <div className="d-flex align-items-center">
-            <strong className="px-2 mt-3">Date de création:</strong>
-            <span className="mt-3">01/05/2022</span>
-          </div>
-          <div className="d-flex align-items-center">
-            <strong className="px-2 mt-3">PDG:</strong>
-            <span className="mt-3">M.Bernardi</span>
-          </div>
-          <div className="d-flex align-items-center">
-            <strong className="px-2 mt-3">Forme juridique:</strong>
-            <span className="mt-3">SARL</span>
-          </div>
-          <div className="d-flex align-items-center">
-            <strong className="px-2 mt-3">Chiffre d'affaire:</strong>
-            <span className="mt-3">70 k€</span>
-          </div>
-          <div className="d-flex align-items-center">
-            <strong className="px-2 mt-3">Nombre de Bnf:</strong>
-            <span className="mt-3">150 / 800</span>
-          </div>
-          <div className="d-flex align-items-center">
-            <strong className="px-2 mt-3">Capitalisation:</strong>
-            <span className="mt-3"> 15 000 €</span>
-          </div>
-        </div>
-      </div>
-      <div className="d-flex">
+        <div className="d-flex justify-content-center text-center mt-5">
         <button
           onClick={() => setShowPurchaseForm(true)}
           className="btn btn-success ms-3"
@@ -131,10 +96,44 @@ const Myre = () => {
         </button>
         {showSaleForm && <TokenSaleForm onClose={handleCloseSaleForm} />}
       </div>
-      <boutton type="bouton" className="btn btn-warning btn-lg btn-bloc mt-3">Le projet</boutton>
-      <div className="container p-5 mt-2"></div>
-      <div className="card mb-3">
+        <div className="ml-4 d-flex flex-column mt-5">
+          <div className="d-flex align-items-center justify-content-between w-100">
+            <strong className="px-2">Cours de l'action:</strong>
+            <span>51.6</span>
+          </div>
+          <div className="d-flex align-items-center justify-content-between w-100">
+            <strong className="px-2 mt-3">Siège social:</strong>
+            <span className="mt-3">Paris</span>
+          </div>
+          <div className="d-flex align-items-center justify-content-between w-100">
+            <strong className="px-2 mt-3">Date de création:</strong>
+            <span className="mt-3">01/05/2022</span>
+          </div>
+          <div className="d-flex align-items-center justify-content-between w-100">
+            <strong className="px-2 mt-3">PDG:</strong>
+            <span className="mt-3">M.Bernardi</span>
+          </div>
+          <div className="d-flex align-items-center justify-content-between w-100">
+            <strong className="px-2 mt-3">Forme juridique:</strong>
+            <span className="mt-3">SARL</span>
+          </div>
+          <div className="d-flex align-items-center justify-content-between w-100">
+            <strong className="px-2 mt-3">Chiffre d'affaire:</strong>
+            <span className="mt-3">70 k€</span>
+          </div>
+          <div className="d-flex align-items-center justify-content-between w-100">
+            <strong className="px-2 mt-3">Nombre de Bnf:</strong>
+            <span className="mt-3">150 / 800</span>
+          </div>
+          <div className="d-flex align-items-center justify-content-between w-100">
+            <strong className="px-2 mt-3">Capitalisation:</strong>
+            <span className="mt-3"> 15 000 €</span>
+          </div>
+        </div>
+      </div>
+      <div className="card mb-3 mt-4" style={{ position: "relative" }}>
         <img className="card-img-top" src={bnfm} alt="Card cap" />
+        <boutton type="bouton" className="btn btn-warning btn-lg btn-bloc mt-3" style={{ position: "absolute", bottom: "50%", left: "50%", transform: "translateX(-50%)" }}>Le projet</boutton>
       </div>
     </div>
   );
