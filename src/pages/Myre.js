@@ -61,16 +61,16 @@ const Myre = () => {
 
   return (
     <div className="d-flex flex-column align-items-center" style={{ minHeight: '100vh' }}>
-    <div className="container pt-4 my-3">
+    <div className="container pt-4 my-0">
     <table class="table table-bordered">  
         <tr><td>BKS</td><td className="text-success">+5%</td><td>BLG</td><td className="text-danger">-3%</td><td>MYRE</td><td className="text-success">+4%</td><td>GAR</td><td className="text-success">+1%</td></tr>  
       </table>
       </div>
       <div className="d-flex align-items-center">
-        <h2 className="text-dark mt-2 mb-4">
+        <h2 className="text-dark mt-0">
           {currentUser ? "MYRE" : "MYRE"}
         </h2>
-        <img src={Mry} width="80" height="80" className="d-inline-block align-top" alt="" />
+        <img src={Mry} width="60" height="60" className="d-inline-block align-top ml-2" alt="" />
       </div>
       <div className="container pt-0 my-0">
       <p class="font-weight-light text-center" className="textcolor text-center">Myre est une structure esportive créée en 2022 par Mark «Markus» Bernardi et Kévin «Rooster» Laforme. Nous voulons donner l’opportunité aux talents d’aujourd’hui de devenir les joueurs de demain. Nous avons l’ambition de devenir une référence connue de tous. Un contrat AR est une valeure mobilière qui représente une fraction des bénéfices générés par l’entreprise listée sur Backstorm, sa valeur évoluera en fonction de l’offre et la demande mais aussi de la rentabilité du titre. Le versement des bénéfices s’effectue chaque trimestre. 
