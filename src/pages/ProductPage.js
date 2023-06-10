@@ -9,35 +9,51 @@ const ProductPage = () => {
     const navigate = useNavigate()
 
   return (
-    <div className="container pt-4">
+    <div className="container pt-4 my-3">
     <table class="table table-bordered ">  
         <tr><td>BKS</td><td className="text-success">+5%</td><td>BLG</td><td className="text-danger">-3%</td><td>MYRE</td><td className="text-success">+4%</td><td>GAR</td><td className="text-success">+1%</td></tr>  
       </table>
     <h1 className="display-10 text-dark text-center">
-        {currentUser ? "Liste des Bnf's" : "Bienvenue sur Backstorm"}
+        {currentUser ? "Liste des CAR" : "Bienvenue sur Backstorm"}
       </h1>
       <p class="font-weight-light text-center" className="textcolor text-center">Le Backstorm Non Fongible BNF est une solution technologique faisant office de contrat à rendement numérique. En effet, il permet aux entreprises de mettre à disposition aux investisseurs des titres de propriété et reverseront en contrepartie de leur investissement un rendement en fonction de leurs bénéfices.</p>
-      <table class="table table-bordered text-dark mt-5">
-        <tr><th>Id Bnf</th><th>Nom Entreprise</th><th>Variation</th><th>Nombre de Titre</th></tr>
-        <tr class="active"><td>01</td><td>BKS</td><td className="text-success">+6%</td><td>150 / 800</td><button 
+      <table class="table text-dark mt-4">
+        <tr><th>Id Bnf</th><th>Nom Entreprise</th><th>Variation</th><th>Valeur</th></tr>
+        <tr class="active"><td>01</td><td>BKS</td><td className="text-success">+6%</td><td>500€</td><button 
         onClick={()=> handleClickButton1("Myre") }
         className="btn btn-outline-success btn-sm mb-2">
           A
-        </button></tr>
-        <tr><td>02</td><td>Boulangerie</td><td className="text-danger">-3%</td><td>200 / 1500</td><button 
+        </button><button 
         onClick={()=> handleClickButton1("Myre") }
-        className="btn btn-outline-success btn-sm mb-2">
-          A
-        </button></tr>
-        <tr><td>03</td><td>MYRE</td><td className="text-success">+4%</td><td>150 / 760</td><button 
-        onClick={()=> handleClickButton1("Myre") }
-        className="btn btn-outline-success btn-sm mb-2">
-          A
+        className="btn btn-outline-danger btn-sm mb-2">
+          V
         </button></tr>  
-        <tr><td>04</td><td>Garage Automobile</td><td className="text-success">+1%</td><td>230 / 1460</td><button 
+        <tr><td>02</td><td>Boulangerie</td><td className="text-danger">-3%</td><td>450€</td><button 
         onClick={()=> handleClickButton1("Myre") }
         className="btn btn-outline-success btn-sm mb-2">
           A
+        </button><button 
+        onClick={()=> handleClickButton1("Myre") }
+        className="btn btn-outline-danger btn-sm mb-2">
+          V
+        </button></tr>  
+        <tr><td>03</td><td>MYRE</td><td className="text-success">+4%</td><td>400€</td><button 
+        onClick={()=> handleClickButton1("Myre") }
+        className="btn btn-outline-success btn-sm mb-2">
+          A
+        </button><button 
+        onClick={()=> handleClickButton1("Myre") }
+        className="btn btn-outline-danger btn-sm mb-2">
+          V
+        </button></tr>  
+        <tr><td>04</td><td>Garage Automobile</td><td className="text-success">+1%</td><td>350€</td><button 
+        onClick={()=> handleClickButton1("Myre") }
+        className="btn btn-outline-success btn-sm mb-2">
+          A
+        </button><button 
+        onClick={()=> handleClickButton1("Myre") }
+        className="btn btn-outline-danger btn-sm mb-2">
+          V
         </button></tr>
       </table>
       <div class="row">
