@@ -3,6 +3,7 @@ import { UserContext } from '../../../context/userContext';
 import TokenPurchaseForm from '../../../context/TokenPurchaseFrom';
 import { getDatabase, ref, onValue } from 'firebase/database';
 import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
+import Tokensale from "../../../context/Tokensale";
 
 export default function PrivateHome() {
   const { user } = useContext(UserContext);
@@ -10,9 +11,13 @@ export default function PrivateHome() {
   const handleClosePurchaseForm = () => {
     setShowPurchaseForm(false);
   };
-  const totalBalance = 0;
+  const [showSaleForm, setShowSaleForm] = useState(false);
+const handleCloseSaleForm = () => {
+  setShowSaleForm(false);
+};
+  const totalBalance = 2850;
   const [resetEmail, setResetEmail] = useState('');
-
+  
   useEffect(() => {
     if (user) {
       const database = getDatabase();
@@ -49,6 +54,9 @@ export default function PrivateHome() {
   const handleClickButton = () => {
     setShowPurchaseForm(true);
   };
+  const handleClickSaleButton = () => {
+    setShowSaleForm(true);
+  };
 
   const handleResetPassword = () => {
     const auth = getAuth();
@@ -64,7 +72,14 @@ export default function PrivateHome() {
 
   return (
     <div className="container pt-4 my-3">
-      <h1 className="h-1 text-dark mb-4 text-center">Mon Compte</h1>
+      <h1 className="h-1 text-dark mb-4">Solde du compte</h1>
+      <h1 className="fs-3"> € {totalBalance}</h1>
+        <button onClick={handleClickButton} className="btn btn-success">
+          Acheter du Vbks
+        </button>
+        <button onClick={handleClickSaleButton} className="btn btn-danger m-2">
+          Retirer du Vbks
+        </button>
       <h2 className="h-2 rectangle-light text-dark mb-3 mt-5">Liste de vos BNF :</h2>
       <table className="table table-striped text-dark">
         <thead>
@@ -142,10 +157,6 @@ export default function PrivateHome() {
         </tbody>
       </table>
       <div className="mb-3">
-        <p>Nombre de Vbks : {totalBalance}</p>
-        <button onClick={handleClickButton} className="btn btn-success ms-3">
-          Acheter du Vbks
-        </button>
         <div className="mb-3">
           <label htmlFor="resetEmail" className="form-label">
             Adresse e-mail :
@@ -163,6 +174,7 @@ export default function PrivateHome() {
         </button>
       </div>
       {showPurchaseForm && <TokenPurchaseForm onClose={handleClosePurchaseForm} />}
+      {showSaleForm && <Tokensale onClose={handleCloseSaleForm} />}
     </div>
   );
 }
