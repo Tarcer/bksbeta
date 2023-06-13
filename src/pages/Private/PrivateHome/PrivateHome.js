@@ -75,10 +75,10 @@ const handleCloseSaleForm = () => {
       <h1 className="h3 text-dark mb-2">Solde du compte</h1>
       <h1 className="fs-1"> € {totalBalance}</h1>
         <button onClick={handleClickButton} className="btn btn-success">
-          Acheter du Vbks
+          Dépôt
         </button>
         <button onClick={handleClickSaleButton} className="btn btn-danger m-2">
-          Retirer du Vbks
+          Retrait
         </button>
       <h2 className="h-2 rectangle-light text-dark mb-3 mt-5">Liste de vos BNF :</h2>
       <table className="table table-striped text-dark">
