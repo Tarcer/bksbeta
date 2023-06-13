@@ -7,7 +7,9 @@ export default function Home() {
   const navigate = useNavigate();
   const handleClickButton1 = () => {
     navigate('/Myre');}
-
+  const handleClickbutton2 = () => {
+    navigate("/Entreprise")
+  }
   return (
     <div className="container pt-4 my-3">
     <table class="table table-bordered ">  
@@ -121,7 +123,11 @@ export default function Home() {
         <img class="card-img-top" src={arcticle}  alt="Card cap"/> 
         <h5 class="card-tittle text-center mt-3">Urban Série 5 Avec la MYRE :</h5>
         <p class="card-text text-center">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <a href="/Entreprise" class="btn btn-warning mt-3">Consulter l'article </a>
+        <button 
+        onClick={()=> handleClickbutton2("Entreprise") }
+        className="btn btn-warning mt-3">
+          Consulter l'article
+        </button>
       </div>
     </div>
   )
