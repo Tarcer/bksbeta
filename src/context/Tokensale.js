@@ -155,7 +155,7 @@ export default function TokenSale({ onClose }) {
             </div>
             <div className="mb-3">
               <label htmlFor="paymentMethod" className="form-label">
-                Méthode de paiement :
+                Méthode de retrait :
               </label>
               <input
                 type="text"
