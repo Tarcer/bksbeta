@@ -96,7 +96,7 @@ const handleCloseSaleForm = () => {
   return (
     <div className="container pt-4 my-3">
       <h1 className="h3 text-dark mb-2">Solde du compte</h1>
-      <h1 className="fs-1">{totalBalance} €</h1>
+      <h1 className="fs-1">€ {totalBalance}</h1>
         <button onClick={handleClickButton} className="btn btn-success">
           Dépôt
         </button>
