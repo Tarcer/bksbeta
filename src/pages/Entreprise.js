@@ -1,8 +1,6 @@
 import React from 'react';
 import arcticle from "./imgMYRE.jpg";
 
-
-
 const Entreprise = () => {
   return (
     <div className="container pt-4 my-3">

@@ -4,9 +4,10 @@ import TokenPurchaseForm from '../../../context/TokenPurchaseFrom';
 import { getDatabase, ref, onValue } from 'firebase/database';
 import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
 import Tokensale from "../../../context/Tokensale";
+import MyrTable from '../../../components/MyrTable';
 
 export default function PrivateHome() {
-  const { user } = useContext(UserContext);
+  const user = useContext(UserContext);
   const [showPurchaseForm, setShowPurchaseForm] = useState(false);
   const handleClosePurchaseForm = () => {
     setShowPurchaseForm(false);
@@ -15,37 +16,59 @@ export default function PrivateHome() {
 const handleCloseSaleForm = () => {
   setShowSaleForm(false);
 };
-  const totalBalance = 2850;
+  const [newTotalBalance, setNewTotalBalance]= useState(0);
+  const [totalBalance, setTotalBalance] = useState(0);
   const [resetEmail, setResetEmail] = useState('');
   
   useEffect(() => {
     if (user) {
       const database = getDatabase();
-      const userId = user.uid;
+      const userId = user.currentUser.uid;
       const transactionRef = ref(database, `transactions/${userId}`);
-
-      const unsubscribeTransactions = onValue(transactionRef, (snapshot) => {
-        const transactions = snapshot.val();
-        const count = transactions ? Object.keys(transactions).length : 0;
-        console.log(count)
+      const totalBalanceRef = ref(database, `totalBalance/${userId}/balance`);
+      const newTotalBalanceRef = ref(database, `newTotalBalance/${userId}`);
+  
+      const unsubscribePromises = [];
+  
+      new Promise((resolve) => {
+        const unsubscribeTransactions = onValue(transactionRef, (snapshot) => {
+          const transactions = snapshot.val();
+          const count = transactions ? Object.keys(transactions).length : 0;
+          console.log(`This is to use the variable count = ${count}`);
+          resolve();
+        });
+        unsubscribePromises.push(unsubscribeTransactions);
       });
-
-      const totalBalanceRef = ref(database, `users/${userId}/totalBalance`);
-      const unsubscribeTotalBalance = onValue(totalBalanceRef, (snapshot) => {
-        const balance = snapshot.val();
-        console.log(balance)
-        // setTotalBalance(parseFloat(totalBalance)); // Convertir la valeur en nombre
+  
+      new Promise((resolve) => {
+        const unsubscribeTotalBalance = onValue(totalBalanceRef, (snapshot) => {
+          const balance = snapshot.val();
+          setTotalBalance(balance);
+          resolve();
+        });
+        unsubscribePromises.push(unsubscribeTotalBalance);
       });
-
+  
+      new Promise((resolve) => {
+        const unsubscribenewTokenBalance = onValue(newTotalBalanceRef, (snapshot) => {
+          setNewTotalBalance(snapshot.val());
+          resolve();
+        });
+        unsubscribePromises.push(unsubscribenewTokenBalance);
+      });
+  
+      Promise.all(unsubscribePromises).then(() => {
+        console.log('All unsubscribed');
+      });
+  
       return () => {
-        transactionRef.off('value', unsubscribeTransactions);
-        totalBalanceRef.off('value', unsubscribeTotalBalance);
+        unsubscribePromises.forEach((unsubscribe) => {
+          unsubscribe();
+        });
       };
     }
-    else{
-      console.log('le else')
-    }
   }, [user]);
+  
 
   if (totalBalance === null) {
     return <div>Chargement du solde...</div>;
@@ -73,7 +96,7 @@ const handleCloseSaleForm = () => {
   return (
     <div className="container pt-4 my-3">
       <h1 className="h3 text-dark mb-2">Solde du compte</h1>
-      <h1 className="fs-1"> € {totalBalance}</h1>
+      <h1 className="fs-1">{totalBalance} €</h1>
         <button onClick={handleClickButton} className="btn btn-success">
           Dépôt
         </button>
@@ -91,30 +114,7 @@ const handleCloseSaleForm = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>01</td>
-            <td>BKS</td>
-            <td className="text-success">+6%</td>
-            <td>500€</td>
-          </tr>
-          <tr>
-            <td>02</td>
-            <td>Boulangerie</td>
-            <td className="text-danger">-3%</td>
-            <td>450€</td>
-          </tr>
-          <tr>
-            <td>03</td>
-            <td>MYRE</td>
-            <td className="text-success">+4%</td>
-            <td>400€</td>
-          </tr>
-          <tr>
-            <td>04</td>
-            <td>Garage Automobile</td>
-            <td className="text-success">+1%</td>
-            <td>350€</td>
-          </tr>
+            <MyrTable idBnf={newTotalBalance.balance} />
         </tbody>
       </table>
       <h3 className="h-2 rectangle-light text-dark mb-3 mt-5">

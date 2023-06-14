@@ -20,6 +20,11 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
 export default function NewTokenPurchaseForm({ onClose }) {
+  const [allTokenTransactions, setAllTokenTransactions]= useState(0) // newTokenTransaction
+  const prix = 500; 
+  const quantite = 100; // newTokenTransaction.amout
+  const K = 0.0005;
+  const nouveauPrix = prix+(quantite-(quantite-allTokenTransactions))/(quantite*K);
   // const { signIn } = useContext(UserContext);
   const navigate = useNavigate();
 
@@ -95,6 +100,17 @@ export default function NewTokenPurchaseForm({ onClose }) {
 
     const newTotalBalanceRef = ref(database, `newTotalBalance/${userId}`);
     const newTokenTransactionRef = ref(database, `newTokenTransactions/${userId}`);
+    const allTokenTransactionRef = ref(database, `newTokenTransactions`);
+    const unsubscribeAllTokenTransactions = onValue(allTokenTransactionRef, (snapshot) => {
+      let totalLength = 0;
+      Object.values(snapshot.val()).forEach((account) => {
+        const filter = Object.values(account).filter(
+          (transaction) => transaction.amount === 1
+        );
+        totalLength += filter.length;
+      });    
+      setAllTokenTransactions(totalLength);      
+    });
 
     const updateNewTotalBalance = () => {
       onValue(newTokenTransactionRef, (snapshot) => {
@@ -116,6 +132,7 @@ export default function NewTokenPurchaseForm({ onClose }) {
     updateNewTotalBalance();
 
     return () => {
+      off(newTokenTransactionRef, unsubscribeAllTokenTransactions);
       off(newTokenTransactionRef, updateNewTotalBalance);
     };
   };
@@ -208,6 +225,7 @@ export default function NewTokenPurchaseForm({ onClose }) {
     if (typeof onClose === "function") {
       onClose();
     }
+    console.log(nouveauPrix, 'nouveauPrix');
   };
 
   return (
@@ -233,8 +251,8 @@ export default function NewTokenPurchaseForm({ onClose }) {
                 className="form-control"
                 id="amount"
                 placeholder="Entrez le montant de tokens"
-                min="500"
-                step="500"
+                min= {prix}
+                step= {nouveauPrix}
                 required
               />
             </div>
