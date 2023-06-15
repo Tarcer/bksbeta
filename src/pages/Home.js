@@ -19,7 +19,7 @@ export default function Home() {
       <p class="font-weight-light text-center" className="textcolor text-center">Un contrat AR est une valeure mobilière qui représente une fraction des bénéfices générés par l’entreprise listée sur Backstorm, sa valeur évoluera en fonction de l’offre et la demande mais aussi de la rentabilité du titre. Le versement des bénéfices s’effectue chaque trimestre. 
       </p>
       <table class="table text-dark mt-5">
-        <tr><th>Id Bnf</th><th>Nom Entreprise</th><th>Variation</th><th>Valeur</th></tr>
+        <tr><th>Bnf</th><th>Nom Entreprise</th><th>Variation</th><th>Valeur</th></tr>
         <tr class="active"><td>01</td><td>BKS</td><td className="text-success">+6%</td><td>500€</td><button 
         onClick={()=> handleClickButton1("Myre") }
         className="btn btn-outline-success btn-sm mb-2">
@@ -78,7 +78,7 @@ export default function Home() {
       <div className="container pt-4 my-3">
       <h4 className="text-dark text-center mt-2">Choisisser votre CAR :</h4><div class="row">
       <table class="table text-dark mt-2">
-        <tr><th>Id Bnf</th><th>Nom Entreprise</th><th>Variation</th><th>Valeur</th></tr>
+        <tr><th>Bnf</th><th>Nom Entreprise</th><th>Variation</th><th>Valeur</th></tr>
         <tr class="active"><td>01</td><td>BKS</td><td className="text-success">+6%</td><td>500€</td><button 
         onClick={()=> handleClickButton1("Myre") }
         className="btn btn-outline-success btn-sm mb-2">

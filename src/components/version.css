@@ -1,0 +1,11 @@
+.mobile-version{
+    display:none;
+}
+@media (max-width: 768px) {
+    .desktop-version{
+        display: none;
+    }
+    .mobile-version{
+        display: block;
+    }
+}
