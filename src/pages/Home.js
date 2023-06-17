@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import arcticle from "./imgMYRE.jpg";
-import NavVariation from '../components/NavVariation';
 
 export default function Home() {
   
@@ -13,7 +12,9 @@ export default function Home() {
   }
   return (
     <div className="container pt-4 my-3">
-      <NavVariation />
+    <table class="table table-bordered ">  
+        <tr><td>BKS</td><td className="text-success">+5%</td><td>BLG</td><td className="text-danger">-3%</td><td>MYRE</td><td className="text-success">+4%</td><td>GAR</td><td className="text-success">+1%</td></tr>  
+      </table>
       <h2 className="h3 text-dark text-center mt-2">Acheter et Trader vos Contrats AR</h2>
       <p class="font-weight-light text-center" className="textcolor text-center">Un contrat AR est une valeure mobilière qui représente une fraction des bénéfices générés par l’entreprise listée sur Backstorm, sa valeur évoluera en fonction de l’offre et la demande mais aussi de la rentabilité du titre. Le versement des bénéfices s’effectue chaque trimestre. 
       </p>

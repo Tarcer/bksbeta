@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 // import { UserContext } from "./userContext";
 import { useNavigate } from "react-router-dom";
-import { getDatabase, ref, update, push, onValue, off, get } from "firebase/database";
+import { getDatabase, ref, update, push, onValue, off } from "firebase/database";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 
@@ -20,12 +20,11 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
 export default function NewTokenPurchaseForm({ onClose }) {
-  const [allTokenTransactions, setAllTokenTransactions] = useState(0) // newTokenTransaction
+  const [allTokenTransactions, setAllTokenTransactions]= useState(0) // newTokenTransaction
   const prix = 500; 
   const quantite = 100; // newTokenTransaction.amout
   const K = 0.0005;
-  const entrepriseNames = ["Myre","BKS","Nike","Tesla","Samsung","Apple","Nokia","Rolex"];
-  const nouveauPrix = prix + (quantite - (quantite - allTokenTransactions)) / (quantite * K);
+  const nouveauPrix = prix+(quantite-(quantite-allTokenTransactions))/(quantite*K);
   // const { signIn } = useContext(UserContext);
   const navigate = useNavigate();
 
@@ -100,9 +99,8 @@ export default function NewTokenPurchaseForm({ onClose }) {
 
     const newTotalBalanceRef = ref(database, `newTotalBalance/${userId}`);
     const newTokenTransactionRef = ref(database, `newTokenTransactions/${userId}`);
-    const allTokenTransactionRef = ref(database, `newTokenTransactions`); // Pour avoir toutes les transactions de tous les utilisateurs (globalité)
-
-    const updateAllTokenTransactions = onValue(allTokenTransactionRef, (snapshot) => {
+    const allTokenTransactionRef = ref(database, `newTokenTransactions`);
+    const unsubscribeAllTokenTransactions = onValue(allTokenTransactionRef, (snapshot) => {
       let totalLength = 0;
       Object.values(snapshot.val()).forEach((account) => {
         const filter = Object.values(account).filter(
@@ -126,36 +124,20 @@ export default function NewTokenPurchaseForm({ onClose }) {
 
         update(newTotalBalanceRef, {   
           balance: newTotalBalance,
+          //entreprise : nomEntreprise,
+          // variation :,
+          // valeur : 
         });
       });
     };
 
     updateNewTotalBalance();
+
     return () => {
-      off(newTokenTransactionRef, updateAllTokenTransactions);
+      off(newTokenTransactionRef, unsubscribeAllTokenTransactions);
       off(newTokenTransactionRef, updateNewTotalBalance);
     };
   };
-  
-  const updateAllInformations = () => {
-    const allInformationsRef = ref(database, `globalInformation`);
-    let price = 0;
-  
-    get(allInformationsRef)
-      .then((snapshot) => {
-        const informationArray = entrepriseNames.map((name) => {
-          const variation = `${(nouveauPrix / quantite)}%`;
-          return { name, variation, price };
-        });
-        
-        update(allInformationsRef, { informationArray });
-      })
-      .catch((error) => {
-        // Gérer les erreurs ici
-        console.error("Une erreur s'est produite lors de la mise à jour des informations :", error);
-      });
-  };
-  
 
   const calculateTotalBalance = (userId) => {
     const transactionRef = ref(database, `transactions/${userId}`);
@@ -187,7 +169,11 @@ export default function NewTokenPurchaseForm({ onClose }) {
     if (user) {
       calculateTotalBalance(user.uid);
       createNewTotalBalance(user);
+    }
+  }, [user]);
 
+  useEffect(() => {
+    if (user) {
       const userTokenBalanceRef = ref(database, `users/${user.uid}/newTokenBalance`);
 
       onValue(userTokenBalanceRef, (snapshot) => {
@@ -205,6 +191,7 @@ export default function NewTokenPurchaseForm({ onClose }) {
 
   const handleForm = async (e) => {
     e.preventDefault();
+
     const amount = inputs.current[0].value;
 
     try {
@@ -226,8 +213,9 @@ export default function NewTokenPurchaseForm({ onClose }) {
 
       formRef.current.reset();
       setValidation("");
-      
+
       navigate("/private/private-home");
+
       onClose();
     } catch {
       setValidation("Une erreur s'est produite lors de l'achat de tokens.");
@@ -240,9 +228,7 @@ export default function NewTokenPurchaseForm({ onClose }) {
       onClose();
     }
     console.log(nouveauPrix, 'nouveauPrix');
-    updateAllInformations();
   };
-
 
   return (
     <>
