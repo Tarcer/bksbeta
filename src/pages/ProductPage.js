@@ -1,18 +1,21 @@
 import React, { useContext } from "react";
 import { UserContext } from "../context/userContext";
 import { useNavigate } from 'react-router-dom';
+import NavVariation from "../components/NavVariation";
+
 
 const ProductPage = () => {
-  const {currentUser} = useContext(UserContext)
+  const {currentUser} = useContext(UserContext);
+  const navigate = useNavigate();
+
   const handleClickButton1 = () => {
-    navigate("/Myre");}
-    const navigate = useNavigate()
+    navigate("/Myre");
+  }
+
 
   return (
     <div className="container pt-4 my-3">
-    <table class="table table-bordered ">  
-        <tr><td>BKS</td><td className="text-success">+5%</td><td>BLG</td><td className="text-danger">-3%</td><td>MYRE</td><td className="text-success">+4%</td><td>GAR</td><td className="text-success">+1%</td></tr>  
-      </table>
+        <NavVariation />
     <h1 className="display-10 text-dark text-center">
         {currentUser ? "Liste des CAR" : "Liste des CAR"}
       </h1>
