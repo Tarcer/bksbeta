@@ -1,12 +1,12 @@
 import React from "react";
 
-function MyrTable ({idBnf}) {
+function MyrTable ({idBnf, variation, price}) {
     return(
         <tr>
             <td>{idBnf}</td>
-            <td>BKS</td>
-            <td className="text-success">+6%</td>
-            <td>500€</td>
+            <td>Myre</td>
+            <td className="text-success">{variation}</td>
+            <td>{`${price}€`}</td>
           </tr>
     );
 }

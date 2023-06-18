@@ -1,12 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { UserContext } from "../context/userContext";
-import { Chart, registerables } from 'chart.js';
 import Mry from '../pages/LOGO_ORANGE.png';
 import Token2PurchaseForm from '../context/Token2PurchaseFrom';
 import TokenSaleForm from '../context/TokenSaleForm';
 import bnfm from "../pages/imgMYRE.jpg";
-
-Chart.register(...registerables);
+import Chart from '../components/Chart';
+import NavVariation from '../components/NavVariation';
 
 const Myre = () => {
   const { currentUser } = useContext(UserContext);
@@ -21,50 +20,10 @@ const Myre = () => {
     setShowSaleForm(false);
   };
 
-  useEffect(() => {
-    createChart();
-  }, []);
-
-  const createChart = () => {
-    const ctx = document.getElementById('myChart').getContext('2d');
-
-    const data = {
-      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-      datasets: [
-        {
-          label: 'Bnf 01',
-          data: [1, 15, 8, 27, 12, 17],
-          backgroundColor: '#ad6aa9',
-          borderColor: '#ad6aa9',
-          borderWidth: 1.5,
-          tension: 0.2,
-        },
-      ],
-    };
-
-    const options = {
-      responsive: true,
-      maintainAspectRatio: false,
-      scales: {
-        y: {
-          beginAtZero: true,
-        },
-      },
-    };
-
-    new Chart(ctx, {
-      type: 'line',
-      data: data,
-      options: options,
-    });
-  };
-
   return (
     <div className="d-flex flex-column align-items-center" style={{ minHeight: '100vh' }}>
     <div className="container pt-4 my-0">
-    <table class="table table-bordered">  
-        <tr><td>BKS</td><td className="text-success">+5%</td><td>BLG</td><td className="text-danger">-3%</td><td>MYRE</td><td className="text-success">+4%</td><td>GAR</td><td className="text-success">+1%</td></tr>  
-      </table>
+      <NavVariation />
       </div>
       <div className="d-flex align-items-center">
         <h2 className="text-dark mt-0">
@@ -77,9 +36,7 @@ const Myre = () => {
       </p>
       </div>
       <div className="container pt-0 my-0 align-items-center mb-4">
-        <div className="d-flex flex-column text-light">
-          <canvas id="myChart" width="450" height="300"></canvas>
-        </div>
+          <Chart />
         <div className="d-flex justify-content-center text-center mt-5">
         <button
           onClick={() => setShowPurchaseForm(true)}

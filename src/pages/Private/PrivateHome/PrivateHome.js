@@ -19,6 +19,8 @@ const handleCloseSaleForm = () => {
   const [newTotalBalance, setNewTotalBalance]= useState(0);
   const [totalBalance, setTotalBalance] = useState(0);
   const [resetEmail, setResetEmail] = useState('');
+  const [lastPrice, setLastPrice]= useState(0);
+  const [variation, setVariation]= useState(0);
   
   useEffect(() => {
     if (user) {
@@ -27,6 +29,7 @@ const handleCloseSaleForm = () => {
       const transactionRef = ref(database, `transactions/${userId}`);
       const totalBalanceRef = ref(database, `totalBalance/${userId}/balance`);
       const newTotalBalanceRef = ref(database, `newTotalBalance/${userId}`);
+      const allInformationsRef = ref(database,`globalInformation`);
   
       const unsubscribePromises = [];
   
@@ -39,7 +42,17 @@ const handleCloseSaleForm = () => {
         });
         unsubscribePromises.push(unsubscribeTransactions);
       });
-  
+      
+      new Promise((resolve) => {
+        const unsubscribeInformations = onValue(allInformationsRef, (snapshot) => {
+          const informations = snapshot.val();
+          setLastPrice(informations.informationArray[0].lastPrice)
+          setVariation(informations.informationArray[0].variation)
+          resolve();
+        });
+        unsubscribePromises.push(unsubscribeInformations);
+      })
+
       new Promise((resolve) => {
         const unsubscribeTotalBalance = onValue(totalBalanceRef, (snapshot) => {
           const balance = snapshot.val();
@@ -68,11 +81,7 @@ const handleCloseSaleForm = () => {
       };
     }
   }, [user]);
-  
 
-  if (totalBalance === null) {
-    return <div>Chargement du solde...</div>;
-  }
 
   const handleClickButton = () => {
     setShowPurchaseForm(true);
@@ -96,7 +105,7 @@ const handleCloseSaleForm = () => {
   return (
     <div className="container pt-4 my-3">
       <h1 className="h3 text-dark mb-2">Solde du compte</h1>
-      <h1 className="fs-1">{totalBalance} €</h1>
+      {totalBalance&& <h1 className="fs-1">{totalBalance} €</h1>}
         <button onClick={handleClickButton} className="btn btn-success">
           Dépôt
         </button>
@@ -114,7 +123,7 @@ const handleCloseSaleForm = () => {
           </tr>
         </thead>
         <tbody>
-            <MyrTable idBnf={newTotalBalance.balance} />
+           {newTotalBalance&& <MyrTable idBnf={newTotalBalance.balance} price={lastPrice} variation={variation} />}
         </tbody>
       </table>
       <h3 className="h-2 rectangle-light text-dark mb-3 mt-5">
