@@ -1,16 +1,20 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { UserContext } from "../context/userContext";
 import Mry from '../pages/LOGO_ORANGE.png';
 import Token2PurchaseForm from '../context/Token2PurchaseFrom';
 import TokenSaleForm from '../context/TokenSaleForm';
 import bnfm from "../pages/imgMYRE.jpg";
 import Chart from '../components/Chart';
-import NavVariation from '../components/NavVariation';
+import { ref, onValue, getDatabase } from "firebase/database";
 
 const Myre = () => {
+  const database = getDatabase();
   const { currentUser } = useContext(UserContext);
   const [showPurchaseForm, setShowPurchaseForm] = useState(false);
   const [showSaleForm, setShowSaleForm] = useState(false);
+  const [price,setPrice]=useState(0);
+  const [lastPrice,setLastPrice]=useState(0);
+  const [quantiteBnf,setQuantiteBnf]=useState(0);
 
   const handleClosePurchaseForm = () => {
     setShowPurchaseForm(false);
@@ -19,11 +23,56 @@ const Myre = () => {
   const handleCloseSaleForm = () => {
     setShowSaleForm(false);
   };
+  
+  const callAllInformations = ref(database, `globalInformation`);
+  const callTokenTransactions = ref(database, `newTokenTransactions`);
 
+  useEffect(() => {
+    const getLastPrice = async () => {
+      return new Promise((resolve, reject) => {
+        onValue(callAllInformations, (snapshot) => {
+          resolve(snapshot.val().informationArray[0].lastPrice);
+        });
+      });
+    };
+  
+    const getPrix = async () => {
+      return new Promise((resolve, reject) => {
+        onValue(callTokenTransactions, async (snapshot) => {
+          const tokenTransactions = snapshot.val();
+          if (Object.values(tokenTransactions).length > 1) {
+            const price = await getLastPrice();
+            resolve(price);
+          } else {
+            resolve(500);
+          }
+        });
+      });
+    };
+    
+    const getQuantiteBnf = async () => {
+      return new Promise((resolve, reject)=> {
+        onValue(callAllInformations,(snapshot)=>{
+          resolve(snapshot.val().informationArray[0].quantiteBnf)
+        });
+      });
+    };
+
+    // Utilisation de la fonction asynchrone dans useEffect
+    const fetchData = async () => {
+      setPrice(await getPrix());
+      setLastPrice(await getLastPrice());
+      setQuantiteBnf(await getQuantiteBnf());
+    };
+    fetchData();
+  }, []);
+  
   return (
     <div className="d-flex flex-column align-items-center" style={{ minHeight: '100vh' }}>
     <div className="container pt-4 my-0">
-      <NavVariation />
+    <table class="table table-bordered">  
+        <tr><td>BKS</td><td className="text-success">+5%</td><td>BLG</td><td className="text-danger">-3%</td><td>MYRE</td><td className="text-success">+4%</td><td>GAR</td><td className="text-success">+1%</td></tr>  
+      </table>
       </div>
       <div className="d-flex align-items-center">
         <h2 className="text-dark mt-0">
@@ -44,7 +93,7 @@ const Myre = () => {
         >
           Acheter Le BNF
         </button>
-        {showPurchaseForm && <Token2PurchaseForm onClose={handleClosePurchaseForm} />}
+        {showPurchaseForm && <Token2PurchaseForm onClose={handleClosePurchaseForm} quantiteBnf={quantiteBnf} prix={price} lastPrice={lastPrice}/>}
         <button
           onClick={() => setShowSaleForm(true)}
           className="btn btn-danger ms-3"
@@ -57,7 +106,7 @@ const Myre = () => {
           <table class="table table-bordered">
            <tr>
            <td class="text-start"><strong>Cours de l'action:</strong></td>
-          <td class="text-end" className="textcolor text-end">51.6</td>
+          <td class="text-end" className="textcolor text-end">{`${parseFloat(lastPrice).toFixed(2)} €`}</td>
           </tr>
           </table>
           <table class="table table-bordered">
@@ -93,7 +142,7 @@ const Myre = () => {
           <table class="table table-bordered">
            <tr>
            <td class="text-start"><strong>Nombre de Bnf:</strong></td>
-          <td class="text-end" className="textcolor text-end">150 / 800</td>
+          <td class="text-end" className="textcolor text-end">{`${parseFloat(quantiteBnf).toFixed(3)} / 10 000`}</td>
           </tr>
           </table>
           <table class="table table-bordered">

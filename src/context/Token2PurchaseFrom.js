@@ -19,28 +19,12 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
-export default function NewTokenPurchaseForm({ onClose }) {
+export default function NewTokenPurchaseForm({ onClose, quantiteBnf,prix, lastPrice }) {
   const [allTokenTransactions, setAllTokenTransactions] = useState(0) // newTokenTransaction
-  const callAllInformations = ref(database, `globalInformation`);
-  const callTokenTransactions = ref(database, `newTokenTransactions`);
-  let lastPrice;
-  let prix;
-  onValue(callAllInformations,(snapshot)=>{
-    lastPrice = snapshot.val().informationArray[0].lastPrice;
-  })
-  onValue(callTokenTransactions, (snapshot) => {
-    const tokenTransactions = snapshot.val();
-    if(Object.values(tokenTransactions).length>1){
-      prix=lastPrice;
-    }
-    else{
-      prix = 500;
-    }
-  });
-  const quantite = 100; // newTokenTransaction.amout
+  const token1AmountRequired = 1;
   const K = 0.0005;
   const entrepriseNames = ["Myre","BKS","Nike","Tesla","Samsung","Apple","Nokia","Rolex"];
-  const nouveauPrix = prix + (quantite - (quantite - allTokenTransactions)) / (quantite * K);
+  const nouveauPrix = prix + (quantiteBnf - (quantiteBnf - allTokenTransactions)) / (quantiteBnf * K);
   const navigate = useNavigate();
 
   const [validation, setValidation] = useState("");
@@ -86,25 +70,20 @@ export default function NewTokenPurchaseForm({ onClose }) {
     update(transactionRef, newTransaction);
   };
 
-  const updateNewTokenBalance = (user, amount) => {
+  const updateNewTokenBalance = (user, amount, BnfAchetable) => {
     const userId = user.uid;
 
-    const userTokenBalanceRef = ref(database, `users/${userId}/tokenBalance`);
     const newTokenBalanceRef = ref(database, `users/${userId}/newTokenBalance`);
     const newTokenTransactionRef = push(ref(database, `newTokenTransactions/${userId}`)); // Génère une nouvelle clé unique pour chaque transaction du nouveau token
 
     const newTransaction = {
-      amount: 1,
+      amount: BnfAchetable,
       lastPrice: lastPrice,
       timestamp: Date.now(),
     };
 
-    update(userTokenBalanceRef, {
-      balance: -500,
-    });
-
     update(newTokenBalanceRef, {
-      balance: newTokenBalance + 1,
+      balance: newTokenBalance + BnfAchetable,
     });
 
     update(newTokenTransactionRef, newTransaction);
@@ -142,6 +121,7 @@ export default function NewTokenPurchaseForm({ onClose }) {
         update(newTotalBalanceRef, {   
           balance: newTotalBalance,
         });
+        
       });
     };
 
@@ -152,15 +132,16 @@ export default function NewTokenPurchaseForm({ onClose }) {
     };
   };
   
-  const updateAllInformations = () => {
+  const updateAllInformations = (BnfAchetable) => {
     const allInformationsRef = ref(database, `globalInformation`);
     const price = prix;
     get(allInformationsRef)
       .then((snapshot) => {
         const informationArray = entrepriseNames.map((name) => {
-          const variation = `${(nouveauPrix / quantite)}%`;
+          quantiteBnf -= BnfAchetable;
           const lastPrice=nouveauPrix;
-          return { name, variation, price, lastPrice };
+          const variation = `${(nouveauPrix / quantiteBnf)}%`;
+          return { name, variation, price, lastPrice, quantiteBnf };
         });
         
         update(allInformationsRef, { informationArray });
@@ -212,9 +193,6 @@ export default function NewTokenPurchaseForm({ onClose }) {
             dateAndValue.forEach((transaction)=>{
               dateAndValues.push(transaction)
             })
-            // dateAndValue.forEach((timestamp) => {
-            //   dateAndValues.push(moment(timestamp).format('MMMM Do YYYY, h:mm:ss a'));
-            // });
           });
         }
       });
@@ -238,7 +216,7 @@ export default function NewTokenPurchaseForm({ onClose }) {
   const handleForm = async (e) => {
     e.preventDefault();
     const amount = inputs.current[0].value;
-
+    const BnfAchetable = amount / lastPrice;
     try {
       if (amount === "") {
         setValidation("Veuillez entrer un montant.");
@@ -246,26 +224,25 @@ export default function NewTokenPurchaseForm({ onClose }) {
       }
 
       const tokenAmount = parseInt(amount);
-      const token1AmountRequired = 500;
+
 
       if (tokenAmount < token1AmountRequired) {
         setValidation("Vous devez acheter au moins 500 tokens pour pouvoir acheter le nouveau token.");
         return;
       }
-      updateAllInformations();
+      updateAllInformations(BnfAchetable);
       updateUserTokenBalance(user, tokenAmount);
-      updateNewTokenBalance(user, tokenAmount);
+      updateNewTokenBalance(user, tokenAmount, BnfAchetable);
 
       formRef.current.reset();
       setValidation("");
-      
+      console.log(BnfAchetable);
       navigate("/private/private-home");
       onClose();
     } catch {
       setValidation("Une erreur s'est produite lors de l'achat de tokens.");
     }
   };
-
   const closeModal = () => {
     setValidation("");
     if (typeof onClose === "function") {
@@ -293,12 +270,12 @@ export default function NewTokenPurchaseForm({ onClose }) {
               </label>
               <input
                 ref={addInputs}
-                type="number"
+                type="text"
+                pattern="[0-9]+([,\.][0-9]+)?" // Expression régulière pour autoriser les virgules décimales
                 className="form-control"
                 id="amount"
                 placeholder="Entrez le montant de tokens"
-                min= {prix}
-                step= {nouveauPrix}
+                min={token1AmountRequired}
                 required
               />
             </div>

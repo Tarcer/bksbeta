@@ -41,7 +41,7 @@ function NavVariation () {
         <div className="marquee-rtl">  
         <span>
             {data?.informationArray?.map((information) => (
-                <TableVariation name={information.name} variation={information.variation}/>
+                <TableVariation name={information.name} variation={`${parseFloat(information.variation).toFixed(3)}%`}/>
             ))}
         </span>
         </div>
