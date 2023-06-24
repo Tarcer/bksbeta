@@ -222,7 +222,10 @@ export default function NewTokenPurchaseForm({ onClose, quantiteBnf,prix, lastPr
         setValidation("Veuillez entrer un montant.");
         return;
       }
-
+      if(BnfAchetable>quantiteBnf){
+        setValidation("Il n'y a pas autant de BnF disponnible dans le marché.");
+        return;
+      }
       if (totalBalance<amount){
         setValidation("Veuillez approvisionner votre compte.");
         return;
