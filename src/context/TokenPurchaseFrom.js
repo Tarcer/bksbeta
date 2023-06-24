@@ -103,11 +103,11 @@ export default function TokenPurchaseForm({ onClose }) {
         return;
       }
 
-      const tokenAmount = parseInt(amount);
+      const tokenAmount = amount;
       const token1AmountRequired = 10; // Montant requis de token 1 pour acheter le token 2
 
       if (tokenAmount < token1AmountRequired) {
-        setValidation("Vous devez acheter au moins 500vBKS pour pouvoir acheter les Bnf's.");
+        setValidation("Vous devez déposer au moins 10 euros.");
         return;
       }
 
@@ -155,8 +155,11 @@ export default function TokenPurchaseForm({ onClose }) {
                 Montant :
               </label>
               <input
-                type="number"
+                type="text"
                 className="form-control"
+                pattern="[0-9]+([,\.][0-9]+)?" 
+                placeholder="Entrez le montant du depot"
+                min={10}
                 id="amount"
                 ref={addInputs}
               />

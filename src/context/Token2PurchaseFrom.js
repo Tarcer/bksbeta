@@ -19,7 +19,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
-export default function NewTokenPurchaseForm({ onClose, quantiteBnf,prix, lastPrice }) {
+export default function NewTokenPurchaseForm({ onClose, quantiteBnf,prix, lastPrice, totalBalance }) {
   const [allTokenTransactions, setAllTokenTransactions] = useState(0) // newTokenTransaction
   const token1AmountRequired = 1;
   const K = 0.0005;
@@ -223,6 +223,10 @@ export default function NewTokenPurchaseForm({ onClose, quantiteBnf,prix, lastPr
         return;
       }
 
+      if (totalBalance<amount){
+        setValidation("Veuillez approvisionner votre compte.");
+        return;
+      }
       const tokenAmount = parseInt(amount);
 
 

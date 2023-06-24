@@ -19,10 +19,10 @@ const ProductPage = () => {
     <h1 className="display-10 text-dark text-center">
         {currentUser ? "Liste des CAR" : "Liste des CAR"}
       </h1>
-      <p class="font-weight-light text-center" className="textcolor text-center">Le Backstorm Non Fongible BNF est une solution technologique faisant office de contrat à rendement numérique. En effet, il permet aux entreprises de mettre à disposition aux investisseurs des titres de propriété et reverseront en contrepartie de leur investissement un rendement en fonction de leurs bénéfices.</p>
-      <table class="table text-dark mt-4">
+      <p className="font-weight-light text-center textcolor">Le Backstorm Non Fongible BNF est une solution technologique faisant office de contrat à rendement numérique. En effet, il permet aux entreprises de mettre à disposition aux investisseurs des titres de propriété et reverseront en contrepartie de leur investissement un rendement en fonction de leurs bénéfices.</p>
+      <table className="table text-dark mt-4">
         <tr><th>Id Bnf</th><th>Nom Entreprise</th><th>Variation</th><th>Valeur</th></tr>
-        <tr class="active"><td>01</td><td>BKS</td><td className="text-success">+6%</td><td>500€</td><button 
+        <tr className="active"><td>01</td><td>BKS</td><td className="text-success">+6%</td><td>500€</td><button 
         onClick={()=> handleClickButton1("Myre") }
         className="btn btn-outline-success btn-sm mb-2">
           A
@@ -59,42 +59,42 @@ const ProductPage = () => {
           V
         </button></tr>
       </table>
-      <div class="row">
-  <div class="col-sm-6 mt-5">
-    <div class="card">
-      <div class="card-body text-center">
-        <h5 class="card-title text-center">Special title treatment</h5>
-        <p class="card-text text-center">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="/Myre" class="btn btn-primary">Go somewhere</a>
+      <div className="row">
+  <div className="col-sm-6 mt-5">
+    <div className="card">
+      <div className="card-body text-center">
+        <h5 className="card-title text-center">Special title treatment</h5>
+        <p className="card-text text-center">With supporting text below as a natural lead-in to additional content.</p>
+        <a href="/Myre" className="btn btn-primary">Go somewhere</a>
       </div>
     </div>
   </div>
-  <div class="col-sm-6 mt-5">
-    <div class="card">
-      <div class="card-body text-center">
-        <h5 class="card-title text-center">Special title treatment</h5>
-        <p class="card-text text-center">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="/Myre" class="btn btn-primary">Go somewhere</a>
+  <div className="col-sm-6 mt-5">
+    <div className="card">
+      <div className="card-body text-center">
+        <h5 className="card-title text-center">Special title treatment</h5>
+        <p className="card-text text-center">With supporting text below as a natural lead-in to additional content.</p>
+        <a href="/Myre" className="btn btn-primary">Go somewhere</a>
       </div>
     </div>
   </div>
 </div>
-<div class="row">
-  <div class="col-sm-6 mt-5">
-    <div class="card">
-      <div class="card-body text-center">
-        <h5 class="card-title text-center">Special title treatment</h5>
-        <p class="card-text text-center">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="/Myre" class="btn btn-primary">Go somewhere</a>
+<div className="row">
+  <div className="col-sm-6 mt-5">
+    <div className="card">
+      <div className="card-body text-center">
+        <h5 className="card-title text-center">Special title treatment</h5>
+        <p className="card-text text-center">With supporting text below as a natural lead-in to additional content.</p>
+        <a href="/Myre" className="btn btn-primary">Go somewhere</a>
       </div>
     </div>
   </div>
-  <div class="col-sm-6 mt-5 mb-5">
-    <div class="card">
-      <div class="card-body text-center">
-        <h5 class="card-title text-center">Special title treatment</h5>
-        <p class="card-text text-center">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="/Myre" class="btn btn-primary">Go somewhere</a>
+  <div className="col-sm-6 mt-5 mb-5">
+    <div className="card">
+      <div className="card-body text-center">
+        <h5 className="card-title text-center">Special title treatment</h5>
+        <p className="card-text text-center">With supporting text below as a natural lead-in to additional content.</p>
+        <a href="/Myre" className="btn btn-primary">Go somewhere</a>
       </div>
     </div>
   </div>

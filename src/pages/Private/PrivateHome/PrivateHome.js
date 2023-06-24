@@ -5,6 +5,8 @@ import { getDatabase, ref, onValue } from 'firebase/database';
 import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
 import Tokensale from "../../../context/Tokensale";
 import MyrTable from '../../../components/MyrTable';
+import TableTransaction from '../../../components/TableTransaction';
+import moment from 'moment';
 
 export default function PrivateHome() {
   const user = useContext(UserContext);
@@ -21,28 +23,29 @@ const handleCloseSaleForm = () => {
   const [resetEmail, setResetEmail] = useState('');
   const [lastPrice, setLastPrice]= useState(0);
   const [variation, setVariation]= useState(0);
+  const [tokenTransactions,setTokenTransactions]=useState([])
+
   
   useEffect(() => {
     if (user) {
       const database = getDatabase();
       const userId = user.currentUser.uid;
-      const transactionRef = ref(database, `transactions/${userId}`);
       const totalBalanceRef = ref(database, `totalBalance/${userId}/balance`);
       const newTotalBalanceRef = ref(database, `newTotalBalance/${userId}`);
       const allInformationsRef = ref(database,`globalInformation`);
+      const newTokenTransactionRef = ref(database, `newTokenTransactions/${userId}`); // newTokenTransaction > amount qui correspond aux BnF
   
       const unsubscribePromises = [];
   
       new Promise((resolve) => {
-        const unsubscribeTransactions = onValue(transactionRef, (snapshot) => {
-          const transactions = snapshot.val();
-          const count = transactions ? Object.keys(transactions).length : 0;
-          console.log(`This is to use the variable count = ${count}`);
+        const unsubscribeTransactions = onValue(newTokenTransactionRef, (snapshot) => {
+          const TokenTransactions = snapshot.val();
+          setTokenTransactions(TokenTransactions);
           resolve();
         });
         unsubscribePromises.push(unsubscribeTransactions);
       });
-      
+
       new Promise((resolve) => {
         const unsubscribeInformations = onValue(allInformationsRef, (snapshot) => {
           const informations = snapshot.val();
@@ -105,7 +108,7 @@ const handleCloseSaleForm = () => {
   return (
     <div className="container pt-4 my-3">
       <h1 className="h3 text-dark mb-2">Solde du compte</h1>
-      {totalBalance&& <h1 className="fs-1">{totalBalance} €</h1>}
+      {totalBalance&& <h1 className="fs-1">{`${parseFloat(totalBalance).toFixed(2)}€`}</h1>}
         <button onClick={handleClickButton} className="btn btn-success">
           Dépôt
         </button>
@@ -129,40 +132,19 @@ const handleCloseSaleForm = () => {
       <h3 className="h-2 rectangle-light text-dark mb-3 mt-5">
         Mes Transactions :
       </h3>
-      <table className="table table-striped text-dark mb-4">
+      <table className="table table-striped text-dark mb-2">
         <thead>
-          <tr>
+          <tr className='text-center'>
             <th>Nombre de Bnf</th>
             <th>Nom Entreprise</th>
-            <th>Prix d'achat</th>
-            <th>Valeur Vendue</th>
+            <th>Valeur</th>
+            <th>Date</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>01</td>
-            <td>BKS</td>
-            <td>300€</td>
-            <td className="text-success">500€</td>
-          </tr>
-          <tr>
-            <td>02</td>
-            <td>Boulangerie</td>
-            <td>200€</td>
-            <td className="text-success">450€</td>
-          </tr>
-          <tr>
-            <td>03</td>
-            <td>MYRE</td>
-            <td>270€</td>
-            <td className="text-success">400€</td>
-          </tr>
-          <tr>
-            <td>04</td>
-            <td>Garage Automobile</td>
-            <td>230€</td>
-            <td className="text-success">350€</td>
-          </tr>
+        <tbody className='text-center'>
+         {tokenTransactions && Object.values(tokenTransactions).toReversed().map((transaction) => (
+           <TableTransaction Bnf={parseFloat(transaction.amount).toFixed(2)} name={'Myre'} valeur={parseFloat(transaction.lastPrice).toFixed(2)} date={moment(transaction.timestamp).format('lll')}/>
+        ))}
         </tbody>
       </table>
       <div className="mb-3">
@@ -183,7 +165,7 @@ const handleCloseSaleForm = () => {
         </button>
       </div>
       {showPurchaseForm && <TokenPurchaseForm onClose={handleClosePurchaseForm} />}
-      {showSaleForm && <Tokensale onClose={handleCloseSaleForm} />}
+      {showSaleForm && <Tokensale onClose={handleCloseSaleForm} totalBalance={totalBalance} />}
     </div>
   );
 }

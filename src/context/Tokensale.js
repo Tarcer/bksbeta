@@ -18,7 +18,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
-export default function TokenSale({ onClose }) {
+export default function TokenSale({ onClose, totalBalance }) {
   const navigate = useNavigate();
 
   const [validation, setValidation] = useState("");
@@ -101,6 +101,10 @@ export default function TokenSale({ onClose }) {
         return;
       }
 
+      if(totalBalance<amount){
+        setValidation("Vous ne disposez pas de ces fonds.");
+        return;
+      }
       const tokenAmount = parseInt(amount);
 
       updateUserTokenBalance(user, tokenAmount);

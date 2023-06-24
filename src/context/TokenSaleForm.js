@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 // import { UserContext } from "./userContext";
 import { useNavigate } from "react-router-dom";
-import { getDatabase, ref, update, push, onValue, off } from "firebase/database";
+import { getDatabase, ref, update, push, onValue, off, get } from "firebase/database";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 
@@ -18,8 +18,9 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
+// const entrepriseNames = ["Myre","BKS","Nike","Tesla","Samsung","Apple","Nokia","Rolex"];
 
-export default function NewTokenSaleForm({ onClose }) {
+export default function NewTokenSaleForm({ onClose, newTotalBalance, lastPrice }) {
   // const { signIn } = useContext(UserContext);
   const navigate = useNavigate();
 
@@ -53,34 +54,44 @@ export default function NewTokenSaleForm({ onClose }) {
 
     const userTokenBalanceRef = ref(database, `users/${userId}/tokenBalance`);
     const transactionRef = push(ref(database, `transactions/${userId}`)); // Génère une nouvelle clé unique pour chaque transaction
-
-    const newTransaction = {
-      amount: amount * 500,
-      timestamp: Date.now(),
+    const allInformationsRef = ref(database, `globalInformation`);
+    
+    get(allInformationsRef).then((snapshot) => {
+      const { informationArray } = snapshot.val();
+      const lastPrice = informationArray[0].lastPrice;
+    
+      const updatedInfo = {
+        ...informationArray[0],
+        quantiteBnf: Number(informationArray[0].quantiteBnf) + Number(amount),
+      };
+    
+      informationArray[0] = updatedInfo;
+    
+      const newTransaction = {
+        amount: lastPrice * amount,
+        timestamp: Date.now(),
+      };
+    
+      update(userTokenBalanceRef, {
+        balance: lastPrice * amount,
+      });
+      update(transactionRef, newTransaction);
+      update(allInformationsRef, { informationArray });
+    });    
+    
     };
-
-    update(userTokenBalanceRef, {
-      balance: amount * 500,
-    });
-
-    update(transactionRef, newTransaction);
-  };
 
   const updateNewTokenBalance = (user, amount) => {
     const userId = user.uid;
 
-    const newTokenBalanceRef = ref(database, `users/${userId}/newTokenBalance`);
+    // const newTokenBalanceRef = ref(database, `users/${userId}/newTokenBalance`);
     const newTokenTransactionRef = push(ref(database, `newTokenTransactions/${userId}`)); // Génère une nouvelle clé unique pour chaque transaction du nouveau token
 
-    const newTransaction = {
-      amount: -amount,
-      timestamp: Date.now(),
-    };
-
-    update(newTokenBalanceRef, {
-      balance: -amount,
-    });
-
+      const newTransaction = {
+        amount: -amount,
+        lastPrice: lastPrice,
+        timestamp: Date.now(),
+      };
     update(newTokenTransactionRef, newTransaction);
   };
 
@@ -147,41 +158,20 @@ export default function NewTokenSaleForm({ onClose }) {
     }
   }, [user]);
 
-  useEffect(() => {
-    if (user) {
-      const userTokenBalanceRef = ref(database, `users/${user.uid}/newTokenBalance`);
-
-      onValue(userTokenBalanceRef, (snapshot) => {
-        const balance = snapshot.val();
-        if (balance) {
-          console.log(balance);
-        }
-      });
-
-      return () => {
-        off(userTokenBalanceRef);
-      };
-    }
-  }, [user]);
-
   const handleForm = async (e) => {
     e.preventDefault();
-
     const amount = inputs.current[0].value;
-
+    console.log(newTotalBalance);
     try {
       if (amount === "") {
         setValidation("Veuillez entrer un montant.");
         return;
       }
-
-      const newTokenAmount = parseInt(amount);
-      const newTokenBalanceRequired = 1;
-
-      if (newTokenAmount < newTokenBalanceRequired) {
-        setValidation("Vous devez vendre au moins 1 Bnf.");
-        return;
-      }
+      if(amount>newTotalBalance){
+        setValidation("Vous ne disposez pas d'autant de BnF pour effectuer cette oppération");
+        return
+      };
+      const newTokenAmount = amount;
 
       updateUserTokenBalance(user, newTokenAmount);
       updateNewTokenBalance(user, newTokenAmount);
@@ -220,11 +210,11 @@ export default function NewTokenSaleForm({ onClose }) {
               </label>
               <input
                 ref={addInputs}
-                type="number"
+                type="text"
+                pattern="[0-9]+([,.][0-9]+)?"
                 className="form-control"
                 id="amount"
                 placeholder="Entrez le montant de Bnf"
-                min="1"
                 required
               />
             </div>

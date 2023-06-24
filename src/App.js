@@ -9,6 +9,7 @@ import ProductPage from "./pages/ProductPage";
 import Myre from './pages/Myre';
 import Entreprise from './pages/Entreprise';
 import Navbar2 from "./components/Navbar2";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -22,8 +23,9 @@ function App() {
         <Route path='/Myre' element={<Myre/>}/>
         <Route path="/ProductPage" element={<ProductPage />} />
         <Route path="/private" element={<Private />}>
-          <Route path="/private/private-home" element={<PrivateHome />} />
+        <Route path="/private/private-home" element={<PrivateHome />} />
         </Route>
+        <Route path="/*" element={<NotFound />} />
       </Routes>
       <Navbar2 />
     </>
