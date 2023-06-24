@@ -7,6 +7,7 @@ import bnfm from "../pages/imgMYRE.jpg";
 import Chart from '../components/Chart';
 import { ref, onValue, getDatabase } from "firebase/database";
 import { getAuth } from "firebase/auth";
+import NavVariation from '../components/NavVariation';
 
 const Myre = () => {
   const auth = getAuth();
@@ -96,9 +97,7 @@ const Myre = () => {
   return (
     <div className="d-flex flex-column align-items-center" style={{ minHeight: '100vh' }}>
     <div className="container pt-4 my-0">
-    <table className="table table-bordered">  
-        <tr><td>BKS</td><td className="text-success">+5%</td><td>BLG</td><td className="text-danger">-3%</td><td>MYRE</td><td className="text-success">+4%</td><td>GAR</td><td className="text-success">+1%</td></tr>  
-      </table>
+      <NavVariation  />
       </div>
       <div className="d-flex align-items-center">
         <h2 className="text-dark mt-0">
