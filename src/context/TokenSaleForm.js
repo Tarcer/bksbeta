@@ -19,11 +19,12 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 // const entrepriseNames = ["Myre","BKS","Nike","Tesla","Samsung","Apple","Nokia","Rolex"];
+// Dans un premier temps on appel tout les pré-requis de Myre pour calculer le nouveauPrix en suite on appel AllInformation pour mettre à jour notre lastPrice avec le nouveauprix calculer : prix-(quatite-(quantite-BnfVendable))/(quantite*K)
 
-export default function NewTokenSaleForm({ onClose, newTotalBalance, lastPrice }) {
+export default function NewTokenSaleForm({ onClose, newTotalBalance, lastPrice, K, prix, quantiteBnf }) {
+
   // const { signIn } = useContext(UserContext);
   const navigate = useNavigate();
-
   const [validation, setValidation] = useState("");
   const auth = getAuth();
   const user = auth.currentUser;
@@ -49,7 +50,7 @@ export default function NewTokenSaleForm({ onClose, newTotalBalance, lastPrice }
     };
   }, [auth, navigate]);
 
-  const updateUserTokenBalance = (user, amount) => {
+  const updateUserTokenBalance = (user, amount, nouveauPrix) => {
     const userId = user.uid;
 
     const userTokenBalanceRef = ref(database, `users/${userId}/tokenBalance`);
@@ -62,6 +63,7 @@ export default function NewTokenSaleForm({ onClose, newTotalBalance, lastPrice }
     
       const updatedInfo = {
         ...informationArray[0],
+        lastPrice: nouveauPrix,
         quantiteBnf: Number(informationArray[0].quantiteBnf) + Number(amount),
       };
     
@@ -161,7 +163,7 @@ export default function NewTokenSaleForm({ onClose, newTotalBalance, lastPrice }
   const handleForm = async (e) => {
     e.preventDefault();
     const amount = inputs.current[0].value;
-    console.log(newTotalBalance);
+    const nouveauPrix= prix-(quantiteBnf-(quantiteBnf-amount))/(quantiteBnf*K);
     try {
       if (amount === "") {
         setValidation("Veuillez entrer un montant.");
@@ -173,7 +175,7 @@ export default function NewTokenSaleForm({ onClose, newTotalBalance, lastPrice }
       };
       const newTokenAmount = amount;
 
-      updateUserTokenBalance(user, newTokenAmount);
+      updateUserTokenBalance(user, newTokenAmount, nouveauPrix);
       updateNewTokenBalance(user, newTokenAmount);
 
       formRef.current.reset();

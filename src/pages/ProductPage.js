@@ -1,63 +1,43 @@
-import React, { useContext } from "react";
-import { UserContext } from "../context/userContext";
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
 import NavVariation from "../components/NavVariation";
+import DashboardEntrerpises from '../components/DashboardEntreprises';
+import { ref, onValue, getDatabase } from "firebase/database";
 
 
 const ProductPage = () => {
-  const {currentUser} = useContext(UserContext);
-  const navigate = useNavigate();
+  const database = getDatabase();
+  const [quantiteBnf,setQuantiteBnf]=useState(0);
+  const [variation, setVariation]= useState(0);
+  const [lastPrice, setLastPrice]= useState(0);
+  const callAllInformations = ref(database, `globalInformation`);
+  
+  useEffect(() => {
+  function unsubscribeInformations () {
+    new Promise((resolve) => {
+      onValue(callAllInformations, (snapshot) => {
+      const informations = snapshot.val();
+      setLastPrice(informations.informationArray[0].lastPrice)
+      setVariation(informations.informationArray[0].variation)
+      setQuantiteBnf(snapshot.val().informationArray[0].quantiteBnf);
+      resolve();
+    });
+  })}
 
-  const handleClickButton1 = () => {
-    navigate("/Myre");
-  }
-
+  unsubscribeInformations();
+    console.log(variation,lastPrice)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="container pt-4 my-3">
         <NavVariation />
     <h1 className="display-10 text-dark text-center">
-        {currentUser ? "Liste des CAR" : "Liste des CAR"}
+          Liste des Bnf's
       </h1>
       <p className="font-weight-light text-center textcolor">Le Backstorm Non Fongible BNF est une solution technologique faisant office de contrat à rendement numérique. En effet, il permet aux entreprises de mettre à disposition aux investisseurs des titres de propriété et reverseront en contrepartie de leur investissement un rendement en fonction de leurs bénéfices.</p>
       <table className="table text-dark mt-4">
-        <tr><th>Id Bnf</th><th>Nom Entreprise</th><th>Variation</th><th>Valeur</th></tr>
-        <tr className="active"><td>01</td><td>BKS</td><td className="text-success">+6%</td><td>500€</td><button 
-        onClick={()=> handleClickButton1("Myre") }
-        className="btn btn-outline-success btn-sm mb-2">
-          A
-        </button><button 
-        onClick={()=> handleClickButton1("Myre") }
-        className="btn btn-outline-danger btn-sm mb-2">
-          V
-        </button></tr>  
-        <tr><td>02</td><td>Boulangerie</td><td className="text-danger">-3%</td><td>450€</td><button 
-        onClick={()=> handleClickButton1("Myre") }
-        className="btn btn-outline-success btn-sm mb-2">
-          A
-        </button><button 
-        onClick={()=> handleClickButton1("Myre") }
-        className="btn btn-outline-danger btn-sm mb-2">
-          V
-        </button></tr>  
-        <tr><td>03</td><td>MYRE</td><td className="text-success">+4%</td><td>400€</td><button 
-        onClick={()=> handleClickButton1("Myre") }
-        className="btn btn-outline-success btn-sm mb-2">
-          A
-        </button><button 
-        onClick={()=> handleClickButton1("Myre") }
-        className="btn btn-outline-danger btn-sm mb-2">
-          V
-        </button></tr>  
-        <tr><td>04</td><td>Garage Automobile</td><td className="text-success">+1%</td><td>350€</td><button 
-        onClick={()=> handleClickButton1("Myre") }
-        className="btn btn-outline-success btn-sm mb-2">
-          A
-        </button><button 
-        onClick={()=> handleClickButton1("Myre") }
-        className="btn btn-outline-danger btn-sm mb-2">
-          V
-        </button></tr>
+        <tr><th>Nom Entreprise</th><th>Variation</th><th>Valeur</th><th>Quantité</th></tr>
+        <DashboardEntrerpises name={"Myre"} quantite={quantiteBnf} variation={variation} valeur={lastPrice} />
       </table>
       <div className="row">
   <div className="col-sm-6 mt-5">

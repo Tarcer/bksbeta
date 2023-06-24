@@ -1,14 +1,36 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import arcticle from "./imgMYRE.jpg";
 import NavVariation from '../components/NavVariation';
+import DashboardEntrerpises from '../components/DashboardEntreprises';
+import { ref, onValue, getDatabase } from "firebase/database";
 
 export default function Home() {
+  const database = getDatabase();
+  const [quantiteBnf,setQuantiteBnf]=useState(0);
+  const [variation, setVariation]= useState(0);
+  const [lastPrice, setLastPrice]= useState(0);
+  const callAllInformations = ref(database, `globalInformation`);
   
+  useEffect(() => {
+  function unsubscribeInformations () {
+    new Promise((resolve) => {
+      onValue(callAllInformations, (snapshot) => {
+      const informations = snapshot.val();
+      setLastPrice(informations.informationArray[0].lastPrice)
+      setVariation(informations.informationArray[0].variation)
+      setQuantiteBnf(snapshot.val().informationArray[0].quantiteBnf);
+      resolve();
+    });
+  })}
+
+  unsubscribeInformations();
+    console.log(variation,lastPrice)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const navigate = useNavigate();
-  const handleClickButton1 = () => {
-    navigate('/Myre');}
-  const handleClickbutton2 = () => {
+    const handleClickbutton2 = () => {
     navigate("/Entreprise")
   }
   return (
@@ -18,43 +40,8 @@ export default function Home() {
       <p className="font-weight-light text-center textcolor" >Un contrat AR est une valeure mobilière qui représente une fraction des bénéfices générés par l’entreprise listée sur Backstorm, sa valeur évoluera en fonction de l’offre et la demande mais aussi de la rentabilité du titre. Le versement des bénéfices s’effectue chaque trimestre. 
       </p>
       <table className="table text-dark mt-5">
-        <tr><th>Bnf</th><th>Nom Entreprise</th><th>Variation</th><th>Valeur</th></tr>
-        <tr className="active"><td>01</td><td>BKS</td><td className="text-success">+6%</td><td>500€</td><button 
-        onClick={()=> handleClickButton1("Myre") }
-        className="btn btn-outline-success btn-sm mb-2">
-          A
-        </button><button 
-        onClick={()=> handleClickButton1("Myre") }
-        className="btn btn-outline-danger btn-sm mb-2">
-          V
-        </button></tr>  
-        <tr><td>02</td><td>Boulangerie</td><td className="text-danger">-3%</td><td>450€</td><button 
-        onClick={()=> handleClickButton1("Myre") }
-        className="btn btn-outline-success btn-sm mb-2">
-          A
-        </button><button 
-        onClick={()=> handleClickButton1("Myre") }
-        className="btn btn-outline-danger btn-sm mb-2">
-          V
-        </button></tr>  
-        <tr><td>03</td><td>MYRE</td><td className="text-success">+4%</td><td>400€</td><button 
-        onClick={()=> handleClickButton1("Myre") }
-        className="btn btn-outline-success btn-sm mb-2">
-          A
-        </button><button 
-        onClick={()=> handleClickButton1("Myre") }
-        className="btn btn-outline-danger btn-sm mb-2">
-          V
-        </button></tr>  
-        <tr><td>04</td><td>Garage Automobile</td><td className="text-success">+1%</td><td>350€</td><button 
-        onClick={()=> handleClickButton1("Myre") }
-        className="btn btn-outline-success btn-sm mb-2">
-          A
-        </button><button 
-        onClick={()=> handleClickButton1("Myre") }
-        className="btn btn-outline-danger btn-sm mb-2">
-          V
-        </button></tr>
+        <tr><th>Nom Entreprise</th><th>Variation</th><th>Valeur</th><th>Quantité</th></tr>
+       <DashboardEntrerpises name={"Myre"} quantite={quantiteBnf} variation={variation} valeur={lastPrice} />
       </table>
       <h4 className="h3 text-dark text-center mt-5"> Vérifier mon compte</h4>
       <p className="font-weight-light text-center textcolor" > Vérifier votre compte Backstorm pour accéder à nos services. Les informations collectées respectent le cadre de loi RGPD européennes sur la confidentialité. Vos informations privées sont protégées.</p>
@@ -78,42 +65,7 @@ export default function Home() {
       <h4 className="text-dark text-center mt-2">Choisisser votre CAR :</h4><div className="row">
       <table className="table text-dark mt-2">
         <tr><th>Bnf</th><th>Nom Entreprise</th><th>Variation</th><th>Valeur</th></tr>
-        <tr className="active"><td>01</td><td>BKS</td><td className="text-success">+6%</td><td>500€</td><button 
-        onClick={()=> handleClickButton1("Myre") }
-        className="btn btn-outline-success btn-sm mb-2">
-          A
-        </button><button 
-        onClick={()=> handleClickButton1("Myre") }
-        className="btn btn-outline-danger btn-sm mb-2">
-          V
-        </button></tr>  
-        <tr><td>02</td><td>Boulangerie</td><td className="text-danger">-3%</td><td>450€</td><button 
-        onClick={()=> handleClickButton1("Myre") }
-        className="btn btn-outline-success btn-sm mb-2">
-          A
-        </button><button 
-        onClick={()=> handleClickButton1("Myre") }
-        className="btn btn-outline-danger btn-sm mb-2">
-          V
-        </button></tr>  
-        <tr><td>03</td><td>MYRE</td><td className="text-success">+4%</td><td>400€</td><button 
-        onClick={()=> handleClickButton1("Myre") }
-        className="btn btn-outline-success btn-sm mb-2">
-          A
-        </button><button 
-        onClick={()=> handleClickButton1("Myre") }
-        className="btn btn-outline-danger btn-sm mb-2">
-          V
-        </button></tr>  
-        <tr><td>04</td><td>Garage Automobile</td><td className="text-success">+1%</td><td>350€</td><button 
-        onClick={()=> handleClickButton1("Myre") }
-        className="btn btn-outline-success btn-sm mb-2">
-          A
-        </button><button 
-        onClick={()=> handleClickButton1("Myre") }
-        className="btn btn-outline-danger btn-sm mb-2">
-          V
-        </button></tr>
+        <DashboardEntrerpises name={"Myre"} quantite={quantiteBnf} variation={variation} valeur={lastPrice} />
       </table>
       </div>
       </div>

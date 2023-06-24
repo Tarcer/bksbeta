@@ -102,12 +102,17 @@ export default function TokenPurchaseForm({ onClose }) {
         setValidation("Veuillez remplir tous les champs.");
         return;
       }
-
+      const tokenMax= 100000;
       const tokenAmount = amount;
       const token1AmountRequired = 10; // Montant requis de token 1 pour acheter le token 2
 
       if (tokenAmount < token1AmountRequired) {
         setValidation("Vous devez déposer au moins 10 euros.");
+        return;
+      }
+
+      if(tokenAmount>tokenMax){
+        setValidation("Le maximum de dépot est de 100 000 euros");
         return;
       }
 

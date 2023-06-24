@@ -8,7 +8,7 @@ const Chart = () => {
 
   useEffect(() => {
     // Declare the chart dimensions and margins.
-    const width = 928;
+    const width = 1400;
     const height = 500;
     const marginTop = 20;
     const marginRight = 30;
@@ -31,6 +31,7 @@ const Chart = () => {
 
     const fetchData = async () => {
       const snapshot = await get(callTokenTransactions);
+      console.log(snapshot.val())
       const response = snapshot.val();
       if (response) {
         const dateAndValues = [];
@@ -43,7 +44,7 @@ const Chart = () => {
 
         // Sample data
         const aapl = dateAndValues.map((transaction) => ({
-          date: new Date(moment(transaction.timestamp).format('LL')),
+          date: new Date(moment(transaction.timestamp).format('llll')),
           close: transaction.lastPrice
         }));
 
@@ -53,14 +54,14 @@ const Chart = () => {
         // Declare the y (vertical position) scale.
         const y = d3
           .scaleLinear()
-          .domain([d3.max(aapl, d => d.close), 0])
+          .domain([d3.max(aapl, d => d.close), 500])
           .range([marginTop,height - marginBottom]);
 
         // Add the x-axis.
         svg
           .append("g")
           .attr("transform", `translate(0, ${height - marginBottom})`)
-          .call(d3.axisBottom(x).ticks(width / 80).tickSizeOuter(0));
+          .call(d3.axisBottom(x).ticks(width / 80).tickSizeOuter(0)); // To check
 
         // Add the y-axis.
         svg

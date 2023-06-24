@@ -19,10 +19,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
-export default function NewTokenPurchaseForm({ onClose, quantiteBnf,prix, lastPrice, totalBalance }) {
+export default function NewTokenPurchaseForm({ onClose, quantiteBnf,prix, lastPrice, totalBalance, K }) {
   const [allTokenTransactions, setAllTokenTransactions] = useState(0) // newTokenTransaction
   const token1AmountRequired = 1;
-  const K = 0.0005;
   const entrepriseNames = ["Myre","BKS","Nike","Tesla","Samsung","Apple","Nokia","Rolex"];
   const nouveauPrix = prix + (quantiteBnf - (quantiteBnf - allTokenTransactions)) / (quantiteBnf * K);
   const navigate = useNavigate();
@@ -97,6 +96,7 @@ export default function NewTokenPurchaseForm({ onClose, quantiteBnf,prix, lastPr
     const allTokenTransactionRef = ref(database, `newTokenTransactions`); // Pour avoir toutes les transactions de tous les utilisateurs (globalité)
 
     const updateAllTokenTransactions = onValue(allTokenTransactionRef, (snapshot) => {
+      if(snapshot.val()){      
       let totalLength = 0;
       Object.values(snapshot.val()).forEach((account) => {
         const filter = Object.values(account).filter(
@@ -105,6 +105,7 @@ export default function NewTokenPurchaseForm({ onClose, quantiteBnf,prix, lastPr
         totalLength += filter.length;
       });    
       setAllTokenTransactions(totalLength);    
+    }
     });
 
     const updateNewTotalBalance = () => {
@@ -231,7 +232,6 @@ export default function NewTokenPurchaseForm({ onClose, quantiteBnf,prix, lastPr
         return;
       }
       const tokenAmount = parseInt(amount);
-
 
       if (tokenAmount < token1AmountRequired) {
         setValidation("Vous devez acheter au moins 500 tokens pour pouvoir acheter le nouveau token.");

@@ -142,8 +142,8 @@ const handleCloseSaleForm = () => {
           </tr>
         </thead>
         <tbody className='text-center'>
-         {tokenTransactions && Object.values(tokenTransactions).toReversed().map((transaction) => (
-           <TableTransaction Bnf={parseFloat(transaction.amount).toFixed(2)} name={'Myre'} valeur={parseFloat(transaction.lastPrice).toFixed(2)} date={moment(transaction.timestamp).format('lll')}/>
+         {tokenTransactions && Object.values(tokenTransactions).toReversed().map((transaction, index) => (
+           <TableTransaction key={index} Bnf={parseFloat(transaction.amount).toFixed(2)} name={'Myre'} valeur={parseFloat(transaction.lastPrice).toFixed(2)} date={moment(transaction.timestamp).format('lll')}/>
         ))}
         </tbody>
       </table>

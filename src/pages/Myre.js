@@ -20,7 +20,9 @@ const Myre = () => {
   const [lastPrice,setLastPrice]=useState(0);
   const [quantiteBnf,setQuantiteBnf]=useState(0);
   const [bnFBalance,setBnFBalance]=useState(0);
-  const [totalBalance,setTotalBalance]=useState(0)
+  const [totalBalance,setTotalBalance]=useState(0);
+  const [noPrices,setNoPrices]=useState(false);
+  const K = 0.0005;
 
   const handleClosePurchaseForm = () => {
     setShowPurchaseForm(false);
@@ -64,10 +66,11 @@ const Myre = () => {
       return new Promise((resolve, reject) => {
         onValue(callTokenTransactions, async (snapshot) => {
           const tokenTransactions = snapshot.val();
-          if (Object.values(tokenTransactions).length > 1) {
+          if (tokenTransactions) {
             const price = await getLastPrice();
             resolve(price);
           } else {
+            setNoPrices(true);
             resolve(500);
           }
         });
@@ -91,13 +94,15 @@ const Myre = () => {
       setTotalBalance(await getTotalBalance());
     };
     fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   
   return (
     <div className="d-flex flex-column align-items-center" style={{ minHeight: '100vh' }}>
     <div className="container pt-4 my-0">
-      <NavVariation  />
+    <table className="table table-bordered">  
+        <NavVariation />
+      </table>
       </div>
       <div className="d-flex align-items-center">
         <h2 className="text-dark mt-0">
@@ -110,7 +115,7 @@ const Myre = () => {
       </p>
       </div>
       <div className="container pt-0 my-0 align-items-center mb-4">
-          <Chart />
+          {!noPrices && <Chart />}
         <div className="d-flex justify-content-center text-center mt-5">
         <button
           onClick={() => setShowPurchaseForm(true)}
@@ -118,14 +123,14 @@ const Myre = () => {
         >
           Acheter Le BNF
         </button>
-        {showPurchaseForm && <Token2PurchaseForm onClose={handleClosePurchaseForm} totalBalance={totalBalance} quantiteBnf={quantiteBnf} prix={price} lastPrice={lastPrice}/>}
+        {showPurchaseForm && <Token2PurchaseForm onClose={handleClosePurchaseForm} totalBalance={totalBalance} quantiteBnf={quantiteBnf} prix={price} lastPrice={lastPrice} K={K} />}
         <button
           onClick={() => setShowSaleForm(true)}
           className="btn btn-danger ms-3"
         >
           Vendre le BNF
         </button>
-        {showSaleForm && <TokenSaleForm onClose={handleCloseSaleForm} newTotalBalance={bnFBalance} lastPrice={lastPrice} />}
+        {showSaleForm && <TokenSaleForm onClose={handleCloseSaleForm} newTotalBalance={bnFBalance} lastPrice={lastPrice} prix={price} quantiteBnf={quantiteBnf} K={K}/>}
       </div>
         <div className="ml-4 d-flex flex-column mt-5">
           <table className="table table-bordered">
