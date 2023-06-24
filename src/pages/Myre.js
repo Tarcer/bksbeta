@@ -90,6 +90,7 @@ const Myre = () => {
       setTotalBalance(await getTotalBalance());
     };
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   
   return (
