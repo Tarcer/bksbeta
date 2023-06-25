@@ -45,7 +45,7 @@ export default function Navbar() {
   };
   return (
     <>
-          <nav className="mobile-version navbar navbar-dark bg-dark">
+          <nav className="z-1 mobile-version navbar navbar-dark bg-dark">
             <div className="container-fluid">
               <Link to="/" className="navbar-brand">
                 <img src={BKS} width="160" height="40" className="d-inline-block align-top" alt="" />
@@ -79,7 +79,7 @@ export default function Navbar() {
               </div>
             </div>
           )}
-        <nav className="desktop-version navbar navbar-light bg-dark px-4">
+        <nav className="z-1 desktop-version navbar navbar-light bg-dark px-4">
           <Link to="/" className="navbar-brand">
             <img src={BKS} width="160" height="40" className="d-inline-block align-top" alt="" />
           </Link>

@@ -25,7 +25,6 @@ export default function Home() {
   })}
 
   unsubscribeInformations();
-    console.log(variation,lastPrice)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -58,7 +57,7 @@ export default function Home() {
       </table>
       </div>
       <h4 className="h3 text-dark text-center mt-5">Commencer votre expérience</h4>
-      <div className="ratio ratio-16x9 mt-4">
+      <div className="z-n1 ratio ratio-16x9 mt-4">
        <iframe src="https://www.youtube.com/embed/gs4Tyh-iPUE" title="YouTube video" allowFullScreen></iframe>
       </div>
       <div className="container pt-4 my-3">
@@ -70,7 +69,7 @@ export default function Home() {
       </div>
       </div>
       <h4 className="text-dark text-center mt-4">Notre actualitée :</h4>
-      <div className="card mb-3">
+      <div className="z-n1 card mb-3">
         <img className="card-img-top" src={arcticle}  alt="Card cap"/> 
         <h5 className="card-tittle text-center mt-3">Urban Série 5 Avec la MYRE :</h5>
         <p className="card-text text-center">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>

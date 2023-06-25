@@ -1,24 +1,19 @@
 import React, { useContext, useRef, useState } from "react";
 import { UserContext } from "../context/userContext";
-import {useNavigate} from "react-router-dom"
+import {useNavigate} from "react-router-dom";
 
 export default function SignUpModal() {
   
   const { modalState, toggleModals, signUp } = useContext(UserContext);
-
-  const navigate = useNavigate();
-
-  
+  const navigate = useNavigate(); 
   const [validation, setValidation] = useState("");
-
-  const inputs = useRef([])
+  const inputs = useRef([]);
+  const formRef = useRef();
   const addInputs = el => {
     if(el && !inputs.current.includes(el)){
       inputs.current.push(el)
     }
   }  
-  const formRef = useRef();
-
   const handleForm = async (e) => {
     e.preventDefault()
 
@@ -65,10 +60,11 @@ export default function SignUpModal() {
   return (
     <>
       {modalState.signUpModal && (
-        <div className="position-fixed top-0 vw-100 vh-100">
+        <div className="z-1 position-fixed w-100 h-100">
           <div
           onClick={closeModal}
-          className="w-100 h-100 bg-dark bg-opacity-80">
+          className="w-100 h-100 bg-dark"
+          >
           </div>
             <div
               className="position-absolute top-50 start-50 translate-middle"
@@ -78,9 +74,10 @@ export default function SignUpModal() {
                 <div className="modal-content">
                   <div className="modal-header text-light mb-3">
                     <h5 className="modal-title">Inscription</h5>
-                    <button 
-                    onClick={closeModal}
-                    className="btn-close"></button>
+                    <span style={{ cursor: 'pointer' }}
+                    onClick={closeModal}>
+                    <i className="fa-solid fa-xmark fa-1x"></i>
+                    </span>
                   </div>
 
                   <div className="modal-body">

@@ -14,16 +14,10 @@ function NavVariation() {
       const stockData = snapshot.val();
       setData(stockData);
       if (stockData) {
-        console.log(stockData, 'laaaa');
-        // Convert the data object to an array of objects
-        const informationArray = Object.keys(stockData).map((key) => {
+        Object.keys(stockData).map((key) => {
           const { name, variation, price } = stockData[key];
           return { name, variation, price };
         });
-
-        console.log(informationArray);
-        // Store informationArray in a constant or state variable
-        // Do further processing or actions based on the result
       }
     };
 
@@ -32,7 +26,6 @@ function NavVariation() {
     };
 
     onValue(allInformationsRef, handleDataChange);
-
     // Cleanup the listener when the component unmounts
     return () => {
       off(allInformationsRef, handleDataChange);

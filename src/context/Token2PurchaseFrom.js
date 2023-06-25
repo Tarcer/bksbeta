@@ -309,9 +309,3 @@ export default function NewTokenPurchaseForm({ onClose, quantiteBnf,prix, lastPr
     </>
   );
 }
-
-// On dispose déjà du nombre de Bnf acheté alias idBnf qu'il faudra améliorer
-// Après la transaction on a besoin que le montant dans transactions > id > idTransaction > -amount soit stocké en tant que valeur d'achat.
-// Nom de l'entreprise, aujourd'hui on ne gére que l'entreprise MYRE mais ce n'est pas stocker en base de donnée
-// Variation X
-// Lier l'idBnf avec le montant d'achat (Valeur) et la variation du prix d'actions de l'entreprise 

@@ -17,7 +17,6 @@ export function UserContextProvider(props) {
 
   const [currentUser, setCurrentUser] = useState();
   const [loadingData, setLoadingData] = useState(true);
-  console.log("MAJ", currentUser);
   useEffect(() => {
 
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {

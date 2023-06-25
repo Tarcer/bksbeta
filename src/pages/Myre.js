@@ -13,7 +13,7 @@ const Myre = () => {
   const auth = getAuth();
   const user = auth.currentUser;
   const database = getDatabase();
-  const { currentUser } = useContext(UserContext);
+  const { toggleModals,currentUser } = useContext(UserContext);
   const [showPurchaseForm, setShowPurchaseForm] = useState(false);
   const [showSaleForm, setShowSaleForm] = useState(false);
   const [price,setPrice]=useState(0);
@@ -23,6 +23,17 @@ const Myre = () => {
   const [totalBalance,setTotalBalance]=useState(0);
   const [noPrices,setNoPrices]=useState(false);
   const K = 0.0005;
+  let userId;
+  if(user){
+    userId=user.uid;
+  }
+  const callAllInformations = ref(database, `globalInformation`);
+  const callTokenTransactions = ref(database, `newTokenTransactions`);
+  const newTotalBalanceRef = ref(database, `newTotalBalance/${userId}`);
+  const totalBalanceRef = ref(database, `totalBalance/${userId}`);
+
+
+
 
   const handleClosePurchaseForm = () => {
     setShowPurchaseForm(false);
@@ -31,11 +42,24 @@ const Myre = () => {
   const handleCloseSaleForm = () => {
     setShowSaleForm(false);
   };
-  const userId = user.uid;
-  const callAllInformations = ref(database, `globalInformation`);
-  const callTokenTransactions = ref(database, `newTokenTransactions`);
-  const newTotalBalanceRef = ref(database, `newTotalBalance/${userId}`);
-  const totalBalanceRef = ref(database, `totalBalance/${userId}`);
+
+  const showPurchase = () => {
+    if(user){
+      setShowPurchaseForm(true);
+    }
+    else{
+      toggleModals("signUp");
+    }
+  }
+
+  const showSale = () => {
+    if(user){
+      setShowSaleForm(true);
+    }
+    else{
+      toggleModals("signUp");
+    }
+  }
 
   useEffect(() => {
     const getLastPrice = async () => {
@@ -49,7 +73,9 @@ const Myre = () => {
     const getTotalBalance = async () => {
       return new Promise((resolve, reject) => {
         onValue(totalBalanceRef, (snapshot) => {
-          resolve(snapshot.val().balance);
+          if(snapshot.val() !== null){
+            resolve(snapshot.val().balance);
+          }
         });
       });
     };
@@ -57,7 +83,9 @@ const Myre = () => {
     const getBnFBalance = async () => {
       return new Promise((resolve,reject)=>{
         onValue(newTotalBalanceRef, (snapshot)=> {
-          resolve(snapshot.val().balance);
+          if(snapshot.val() !== null){
+            resolve(snapshot.val().balance);
+          }
         });
       });
     }
@@ -99,7 +127,7 @@ const Myre = () => {
   
   return (
     <div className="d-flex flex-column align-items-center" style={{ minHeight: '100vh' }}>
-    <div className="container pt-4 my-0">
+    <div className="z-n1 container pt-4 my-0">
     <table className="table table-bordered">  
         <NavVariation />
       </table>
@@ -118,14 +146,14 @@ const Myre = () => {
           {!noPrices && <Chart />}
         <div className="d-flex justify-content-center text-center mt-5">
         <button
-          onClick={() => setShowPurchaseForm(true)}
+          onClick={showPurchase}
           className="btn btn-success ms-3"
         >
           Acheter Le BNF
         </button>
         {showPurchaseForm && <Token2PurchaseForm onClose={handleClosePurchaseForm} totalBalance={totalBalance} quantiteBnf={quantiteBnf} prix={price} lastPrice={lastPrice} K={K} />}
         <button
-          onClick={() => setShowSaleForm(true)}
+          onClick={showSale}
           className="btn btn-danger ms-3"
         >
           Vendre le BNF
@@ -183,7 +211,7 @@ const Myre = () => {
           </table>
         </div>
       </div>
-      <div className="card mb-3 mt-2" style={{ position: "relative" }}>
+      <div className="z-n1 card mb-3 mt-2" style={{ position: "relative" }}>
         <img className="card-img-top" src={bnfm} alt="Card cap" />
         <button type="buton" className="btn btn-outline-dark btn-lg btn-block mt-3 d-block" style={{ position: "absolute", bottom: "50%", left: "50%", transform: "translateX(-50%)" }}>Le projet</button>
       </div>

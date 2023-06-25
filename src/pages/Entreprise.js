@@ -4,7 +4,7 @@ import arcticle from "./imgMYRE.jpg";
 const Entreprise = () => {
   return (
     <div className="container pt-4 my-3">
-      <div className="card mb-3">
+      <div className="z-n1 card mb-3">
         <img className="card-img-top" src={arcticle}  alt="Card cap"/> 
         <h5 className="card-title text-center mt-3">Urban Série 5 Avec la MYRE :</h5>
         <p className="card-text text-center">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>

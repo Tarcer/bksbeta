@@ -44,10 +44,10 @@ export default function SignUpModal() {
   return (
     <>
       {modalState.signInModal && (
-        <div className="position-fixed top-0 vw-100 vh-100">
+        <div className="z-1 position-fixed top-0 vw-100 vh-100">
           <div
             onClick={closeModal}
-            className="w-100 h-100 bg-dark bg-opacity-80"
+            className="w-100 h-100 bg-dark"
           ></div>
           <div
             className="position-absolute top-50 start-50 translate-middle"
@@ -55,9 +55,12 @@ export default function SignUpModal() {
           >
             <div className="modal-dialog">
               <div className="modal-content">
-                <div className="modal-header">
-                  <h5 className="modal-title text-light">Connexion</h5>
-                  <button onClick={closeModal} className="btn-close"></button>
+                <div className="modal-header text-light mb-3">
+                  <h5 className="modal-title">Connexion</h5>
+                  <span style={{ cursor: 'pointer' }}
+                    onClick={closeModal}>
+                    <i className="fa-solid fa-xmark fa-1x"></i>
+                    </span>
                 </div>
 
                 <div className="modal-body">
