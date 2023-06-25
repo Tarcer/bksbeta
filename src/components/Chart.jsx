@@ -54,7 +54,7 @@ const Chart = () => {
         // Declare the y (vertical position) scale.
         const y = d3
           .scaleLinear()
-          .domain([d3.max(aapl, d => d.close), 500])
+          .domain([d3.max(aapl, d => d.close), 0])
           .range([marginTop,height - marginBottom]);
 
         // Add the x-axis.
