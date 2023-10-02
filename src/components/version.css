@@ -15,7 +15,6 @@
     animation: defilement-rtl 13s infinite linear;
   }
   
-  
   @keyframes defilement-rtl {
     0% {
       transform: translate3d(0,0,0);      /* position initiale à droite */

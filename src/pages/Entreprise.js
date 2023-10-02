@@ -1,38 +1,62 @@
 import React from 'react';
-import arcticle from "./imgMYRE.jpg";
+import bnfm from "./imgMYRE.jpg";
 
 const Entreprise = () => {
   return (
     <div className="container pt-4 my-3">
-      <div className="z-n1 card mb-3">
-        <img className="card-img-top" src={arcticle}  alt="Card cap"/> 
-        <h5 className="card-title text-center mt-3">Urban Série 5 Avec la MYRE :</h5>
-        <p className="card-text text-center">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <a href="/Entreprise" className="btn btn-warning mt-3">Consulter l'article </a>
+      <div className="z-n1 card mb-3">   
+      <div className="card-body text-center">
+        <h5 className="card-title text-center">Une grande première dans L'esport</h5>
+        <img className="card-img-top mb-2" src={bnfm} alt="Card cap" />
+        <p className="card-text"> Le Partenariat entre Backstorm et Myre offre une nouvelle opportunitée, afin d'investir dans l'esport français.</p>
+        <a href="/Myre" className="btn btn-primary">Consulter l'article</a>
+    </div>
       </div>
-      <div className="card-group">
-  <div className="card">
-    <img className="card-img-top" src={arcticle} alt="Card cap"/>
-    <div className="card-body">
-      <h5 className="card-title">Card title</h5>
-      <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-      <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
+ <div className="row">
+  <div className="col-sm-6 mt-5">
+    <div className="card other-container">
+      <div className="card-body text-center">
+        <h5 className="card-title text-center">Une grande première dans L'esport</h5>
+        <img className="card-img-top mb-2" src={bnfm} alt="Card cap" />
+        <p className="card-text"> Le Partenariat entre Backstorm et Myre offre une nouvelle opportunitée, afin d'investir dans l'esport français.</p>
+      <p className="card-text"><small className="text-muted">Mis en ligne il y a 15 minutes.</small></p>
+        <a href="/Myre" className="btn btn-primary">Consulter l'article</a>
+      </div>
     </div>
   </div>
-  <div className="card">
-    <img className="card-img-top" src={arcticle} alt="Card cap"/>
-    <div className="card-body">
-      <h5 className="card-title">Card title</h5>
-      <p className="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-      <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
+  <div className="col-sm-6 mt-5">
+    <div className="card other-container">
+      <div className="card-body text-center">
+        <h5 className="card-title text-center">L'approche d'une entreprise dans le secteur du CBD</h5>
+        <img className="card-img-top mb-2" src={bnfm} alt="Card cap" />
+        <p className="card-text"> Le Partenariat entre Backstorm et Myre offre une nouvelle opportunitée, afin d'investir dans l'esport français.</p>
+      <p className="card-text"><small className="text-muted">Mis en ligne il y a 15 minutes.</small></p>
+        <a href="/Myre" className="btn btn-primary">Consulter l'article</a>
+      </div>
     </div>
   </div>
-  <div className="card">
-    <img className="card-img-top" src={arcticle} alt="Card cap"/>
-    <div className="card-body">
-      <h5 className="card-title">Card title</h5>
-      <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-      <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
+</div>
+<div className="row">
+  <div className="col-sm-6 mt-5">
+    <div className="card other-container">
+      <div className="card-body text-center">
+        <h5 className="card-title text-center">Une grande première dans L'esport</h5>
+        <img className="card-img-top mb-2" src={bnfm} alt="Card cap" />
+        <p className="card-text"> Le Partenariat entre Backstorm et Myre offre une nouvelle opportunitée, afin d'investir dans l'esport français.</p>
+      <p className="card-text"><small className="text-muted">Mis en ligne il y a 15 minutes.</small></p>
+        <a href="/Myre" className="btn btn-primary">Consulter l'article</a>
+      </div>
+    </div>
+  </div>
+  <div className="col-sm-6 mt-5 mb-5">
+    <div className="card other-container">
+      <div className="card-body text-center">
+        <h5 className="card-title text-center">L'approche d'une entreprise dans le secteur du CBD</h5>
+        <img className="card-img-top mb-2" src={bnfm} alt="Card cap" />
+        <p className="card-text"> Le Partenariat entre Backstorm et Myre offre une nouvelle opportunitée, afin d'investir dans l'esport français.</p>
+      <p className="card-text"><small className="text-muted">Mis en ligne il y a 15 minutes.</small></p>
+        <a href="/Myre" className="btn btn-primary">Consulter l'article</a>
+      </div>
     </div>
   </div>
 </div>

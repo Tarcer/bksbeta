@@ -7,6 +7,7 @@ import { auth } from "../firebase-config";
 import BKS from "../pages/Private/PrivateHome/logo-negative.png";
 import deco from "../pages/logodeco.png";
 import './version.css';
+import { useLocation} from "react-router-dom";
 
 export default function Navbar() {
   const { toggleModals, currentUser } = useContext(UserContext);
@@ -18,7 +19,7 @@ export default function Navbar() {
   }, [currentUser]);
 
   const navigate = useNavigate();
-
+  const location = useLocation ();
   const handleClickButton1 = () => {
     navigate('/');
   };
@@ -58,9 +59,18 @@ export default function Navbar() {
           {displayMenu && (
             <div>
               <div className="bg-dark shadow-3 d-flex flex-column">
-                <button onClick={handleClickButton1} className="btn text-white mt-2">Accueil</button>
-                <button onClick={handleClickButton2} className="btn text-white mt-2">Les Bnf's</button>
-                <button onClick={handleClickButton3} className="btn text-white mt-2">Actualités</button>
+              <button onClick={handleClickButton1} 
+          className={`btn ${location.pathname === '/' ? 'underline' : ''} btn-dark`}>
+            Accueil
+         </button>
+       <button onClick={handleClickButton2} 
+        className={`btn ${location.pathname === '/ProductPage' ? 'underline' : ''} btn-dark`}>
+        Les CAR
+      </button>
+      <button onClick={handleClickButton3} 
+       className={`btn ${location.pathname === '/Entreprise' ? 'underline' : ''} btn-dark`}>
+       Actualités
+       </button>
                 <div className="d-flex justify-content-center m-3" role="group" aria-label="Basic example">
                   {isLoggedIn ? (
                     <>
@@ -84,9 +94,18 @@ export default function Navbar() {
             <img src={BKS} width="160" height="40" className="d-inline-block align-top" alt="" />
           </Link>
           <div className="btn-group" role="group" aria-label="Basic example">
-            <button onClick={handleClickButton1} type="button" className="btn btn-dark">Accueil</button>
-            <button onClick={handleClickButton2} type="button" className="btn btn-dark">Les Bnf's</button>
-            <button onClick={handleClickButton3} type="button" className="btn btn-dark">Actualités</button>
+          <button onClick={handleClickButton1} 
+          className={`btn ${location.pathname === '/' ? 'underline' : ''} btn-dark`}>
+            Accueil
+         </button>
+       <button onClick={handleClickButton2} 
+        className={`btn ${location.pathname === '/ProductPage' ? 'underline' : ''} btn-dark`}>
+        Les CAR
+      </button>
+      <button onClick={handleClickButton3} 
+       className={`btn ${location.pathname === '/Entreprise' ? 'underline' : ''} btn-dark`}>
+       Actualités
+       </button>
           </div>
           <div className="btn-group" role="group" aria-label="Basic example">
             {isLoggedIn ? (

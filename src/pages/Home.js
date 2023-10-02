@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import arcticle from "./imgMYRE.jpg";
 import NavVariation from '../components/NavVariation';
 import DashboardEntrerpises from '../components/DashboardEntreprises';
 import { ref, onValue, getDatabase } from "firebase/database";
+import CBD from "../pages/CBD.jpg";
 
 export default function Home() {
   const database = getDatabase();
@@ -28,57 +28,65 @@ export default function Home() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const navigate = useNavigate();
-    const handleClickbutton2 = () => {
-    navigate("/Entreprise")
-  }
+
   return (
     <div className="container pt-4 my-3">
       <NavVariation  />
-      <h2 className="h3 text-dark text-center mt-2">Acheter et Trader vos Contrats AR</h2>
+      <h2 className="display-10 text-dark text-center mt-2">Acheter et Trader vos Contrats AR :</h2>
       <p className="font-weight-light text-center textcolor" >Un contrat AR est une valeure mobilière qui représente une fraction des bénéfices générés par l’entreprise listée sur Backstorm, sa valeur évoluera en fonction de l’offre et la demande mais aussi de la rentabilité du titre. Le versement des bénéfices s’effectue chaque trimestre. 
       </p>
-      <table className="table text-dark mt-5">
+      <div className="outer-container mt-5">
+       <h4 className="h3 text-dark text-center mb-3"> Les CAR en circulation</h4>
+      <table className="table text-dark ">
         <tr><th>Nom Entreprise</th><th>Variation</th><th>Valeur</th><th>Quantité</th></tr>
        <DashboardEntrerpises name={"Myre"} quantite={quantiteBnf} variation={variation} valeur={lastPrice} />
       </table>
-      <h4 className="h3 text-dark text-center mt-5"> Vérifier mon compte</h4>
-      <p className="font-weight-light text-center textcolor" > Vérifier votre compte Backstorm pour accéder à nos services. Les informations collectées respectent le cadre de loi RGPD européennes sur la confidentialité. Vos informations privées sont protégées.</p>
-      <div className="row h-50 justify-content-center align-items-center">
-      <button className="btn btn-secondary btn-sm btn-bloc mt-3">Vérifier maintenant</button>
       </div>
-      <div className="container pt-4 my-3">
-      <h4 className="h3 text-dark text-center mt-4">Activité du Marché</h4>
-      <table className="table text-dark mt-3">
+      <div className="other-container  mt-5">
+      <div>
+      <h4 className="h3 text-dark text-center" style={{textDecoration: 'underline'}} >Activité du Marché :</h4>
+      <table className="table table-dark text-dark mt-3">
        <tr><td className="h6 text-dark">Valeur des transactions</td><td className='textcolor'>1 000 000 €</td></tr>  
        <tr><td className="h6 text-dark">Capitalisation du marché</td><td className='textcolor'>10 000 000 €</td></tr>  
        <tr><td className="h6 text-dark">BNF TOP 30</td><td className='textcolor'>1000 000 €</td></tr>  
        <tr><td className="h6 text-dark">BNF EN VENTE</td><td className='textcolor'>600 000 €</td></tr>
       </table>
       </div>
-      <h4 className="h3 text-dark text-center mt-5">Commencer votre expérience</h4>
-      <div className="z-n1 ratio ratio-16x9 mt-4">
+      </div>
+      <h4 className="h3 text-dark text-center mt-5" style={{textDecoration: 'underline'}}>Commencer votre expérience :</h4>
+      <div className="z-n1 ratio ratio-16x9 mt-2">
        <iframe src="https://www.youtube.com/embed/gs4Tyh-iPUE" title="YouTube video" allowFullScreen></iframe>
       </div>
-      <div className="container pt-4 my-3">
-      <h4 className="text-dark text-center mt-2">Choisisser votre CAR :</h4><div className="row">
-      <table className="table text-dark mt-2">
-        <tr><th>Bnf</th><th>Nom Entreprise</th><th>Variation</th><th>Valeur</th></tr>
-        <DashboardEntrerpises name={"Myre"} quantite={quantiteBnf} variation={variation} valeur={lastPrice} />
-      </table>
-      </div>
-      </div>
-      <h4 className="text-dark text-center mt-4">Notre actualitée :</h4>
-      <div className="z-n1 card mb-3">
-        <img className="card-img-top" src={arcticle}  alt="Card cap"/> 
-        <h5 className="card-tittle text-center mt-3">Urban Série 5 Avec la MYRE :</h5>
-        <p className="card-text text-center">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <button 
-        onClick={()=> handleClickbutton2("Entreprise") }
-        className="btn btn-warning mt-3">
-          Consulter l'article
-        </button>
-      </div>
+      <h4 className="display-10 text-dark text-center mt-5" style={{textDecoration: 'underline'}}>Notre Actualitée :</h4>
+      <div className="other-container mt-1">
+      <div class="card mb-3">
+  <img src={arcticle} class="card-img-top" alt="Wild Landscape"/>
+  <div class="card-body">
+    <h5 class="card-title">Une grande première dans L'esport</h5>
+    <p class="card-text">
+      Le Partenariat entre Backstorm et Myre offre une nouvelle opportunitée, afin d'investir dans l'esport français.
+    </p>
+    <p class="card-text">
+      <small class="text-muted">Mis en ligne il y a 15 minutes.</small>
+    </p>
+  </div>
+  </div>
+</div>
+<div className="other-container mt-4">
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">L'approche d'une entreprise dans le secteur du CBD</h5>
+    <p class="card-text">
+      Backstorm se rapproche d'une entreprise dans le domaine du CBD , avec un nouveau listing.
+      L'entreprise Bamboo CBD est en pour parler avec notre groupe.
+    </p>
+    <p class="card-text">
+      <small class="text-muted">Mis en ligne il y a 5 minutes.</small>
+    </p>
+  </div>
+  <img src={CBD} class="card-img-bottom" alt="Camera"/>
+  </div>
+</div>
     </div>
   )
 }

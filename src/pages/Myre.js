@@ -133,16 +133,16 @@ const Myre = () => {
       </table>
       </div>
       <div className="d-flex align-items-center">
-        <h2 className="text-dark mt-0">
+        <h2 className="text-dark">
           {currentUser ? "MYRE" : "MYRE"}
         </h2>
         <img src={Mry} width="60" height="60" className="d-inline-block align-top ml-2" alt="" />
       </div>
       <div className="container pt-0 my-0">
-      <p className="font-weight-light text-center textcolor">Myre est une structure esportive créée en 2022 par Mark «Markus» Bernardi et Kévin «Rooster» Laforme. Nous voulons donner l’opportunité aux talents d’aujourd’hui de devenir les joueurs de demain. Nous avons l’ambition de devenir une référence connue de tous. Un contrat AR est une valeure mobilière qui représente une fraction des bénéfices générés par l’entreprise listée sur Backstorm, sa valeur évoluera en fonction de l’offre et la demande mais aussi de la rentabilité du titre. Le versement des bénéfices s’effectue chaque trimestre. 
+      <p className="font-weight-light text-center textcolor outer-container mt-5">Myre est une structure esportive créée en 2022 par Mark «Markus» Bernardi et Kévin «Rooster» Laforme. Nous voulons donner l’opportunité aux talents d’aujourd’hui de devenir les joueurs de demain. Nous avons l’ambition de devenir une référence connue de tous. Un contrat AR est une valeure mobilière qui représente une fraction des bénéfices générés par l’entreprise listée sur Backstorm, sa valeur évoluera en fonction de l’offre et la demande mais aussi de la rentabilité du titre. Le versement des bénéfices s’effectue chaque trimestre. 
       </p>
       </div>
-      <div className="container pt-0 my-0 align-items-center mb-4">
+      <div className="container pt-0 my-0 align-items-center mb-5 mt-5">
           {!noPrices && <Chart />}
         <div className="d-flex justify-content-center text-center mt-5">
         <button
@@ -211,9 +211,8 @@ const Myre = () => {
           </table>
         </div>
       </div>
-      <div className="z-n1 card mb-3 mt-2" style={{ position: "relative" }}>
+      <div className=" z-n1 card mb-3 mt-2 " style={{ position: "relative" }}>
         <img className="card-img-top" src={bnfm} alt="Card cap" />
-        <button type="buton" className="btn btn-outline-dark btn-lg btn-block mt-3 d-block" style={{ position: "absolute", bottom: "50%", left: "50%", transform: "translateX(-50%)" }}>Le projet</button>
       </div>
     </div>
   );

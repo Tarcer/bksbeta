@@ -147,7 +147,7 @@ const handleCloseSaleForm = () => {
         ))}
         </tbody>
       </table>
-      <div className="mb-3">
+      <div className="outer-container mb-3 mt-5">
         <div className="mb-3">
           <label htmlFor="resetEmail" className="form-label">
             Adresse e-mail :
@@ -160,6 +160,7 @@ const handleCloseSaleForm = () => {
             onChange={(e) => setResetEmail(e.target.value)}
           />
         </div>
+        <div></div>
         <button onClick={handleResetPassword} className="btn btn-secondary me-3">
           Réinitialiser le mot de passe
         </button>
