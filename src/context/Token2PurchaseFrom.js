@@ -244,7 +244,7 @@ export default function NewTokenPurchaseForm({ onClose, quantiteBnf,prix, lastPr
       formRef.current.reset();
       setValidation("");
       console.log(BnfAchetable);
-      navigate("/private/private-home");
+      navigate("/private-home");
       onClose();
     } catch {
       setValidation("Une erreur s'est produite lors de l'achat de tokens.");

@@ -5,7 +5,7 @@ function MyrTable ({idBnf, variation, price}) {
         <tr>
             <td>{parseFloat(idBnf).toFixed(3)}</td>
             <td>Myre</td>
-            <td className="text-success">{`${parseFloat(variation).toFixed(3)}%`}</td>
+            <td className="text-[#81BF73]">{`${parseFloat(variation).toFixed(3)}%`}</td>
             <td>{`${parseFloat(price).toFixed(2)}€`}</td>
           </tr>
     );

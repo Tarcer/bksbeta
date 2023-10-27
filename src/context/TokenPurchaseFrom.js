@@ -121,7 +121,7 @@ export default function TokenPurchaseForm({ onClose }) {
       formRef.current.reset();
       setValidation("");
 
-      navigate("/private/private-home");
+      navigate("/private-home");
 
       onClose();
     } catch {
@@ -153,10 +153,10 @@ export default function TokenPurchaseForm({ onClose }) {
           className="position-absolute top-50 start-50 translate-middle bg-light shadow-lg rounded p-4"
           style={{ zIndex: "1050", maxWidth: "600px", width: "90%" }}
         >
-          <h3 className="text-center mb-4">Acheter Token 1</h3>
+          <h3 className="text-5xl text-Black font-montserrat">Acheter du BKS</h3>
           <form ref={formRef} onSubmit={handleForm}>
             <div className="mb-3">
-              <label htmlFor="amount" className="form-label">
+              <label htmlFor="amount" className="text-5xl text-Black font-montserrat">
                 Montant :
               </label>
               <input
@@ -170,7 +170,7 @@ export default function TokenPurchaseForm({ onClose }) {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="paymentMethod" className="form-label">
+              <label htmlFor="paymentMethod" className="text-5xl text-Black font-montserrat">
                 Méthode de paiement :
               </label>
               <input
@@ -181,13 +181,13 @@ export default function TokenPurchaseForm({ onClose }) {
               />
             </div>
             <div className="text-center">
-              <button type="submit" className="btn btn-primary me-2">
+              <button type="submit" className="cursor-pointer rounded p-2 m-1 bg-[#81BF73] text-smi text-white">
                 Acheter
               </button>
               <button
                 type="button"
                 onClick={closeModal}
-                className="btn btn-secondary"
+                className="cursor-pointer rounded p-2 m-1 bg-[#EE6B5F] text-smi text-white"
               >
                 Annuler
               </button>

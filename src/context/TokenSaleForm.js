@@ -181,7 +181,7 @@ export default function NewTokenSaleForm({ onClose, newTotalBalance, lastPrice, 
       formRef.current.reset();
       setValidation("");
 
-      navigate("/private/private-home");
+      navigate("/private-home");
 
       onClose();
     } catch {
