@@ -29,7 +29,7 @@ function Footer(){
             <p className="m-0">{`making it over 2000 years old. Contrary to popular belief, Lorem `}</p>
             <p className="m-0">{`Ipsum is not simply random text. It has roots in a piece of classical `}</p>
             <p className="m-0">
-              Latin literature from 45 BC, making it over 2000 years old.
+              A compléter.
             </p>
           </div>
         </div>
